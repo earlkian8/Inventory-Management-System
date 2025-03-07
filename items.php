@@ -161,7 +161,7 @@
             <!-- Modal -->
              <div class="modal-text-container">
                 <!-- Text -->
-                 <h1 class="h1-style" name="name-content"></h1>
+                 <h1 class="h1-style" name="name-content", id="name-content"></h1>
                  <img src="/images/arrow-icon-383838.png" alt="back" class="back-img-style" id="back-content">
              </div>
              <div class="modal-input-container">
@@ -208,7 +208,7 @@
              <div class="modal-button-container">
                 <!-- Button -->
                  <button class="save-button-style" id="modifSave">Save</button>
-                 <button class="discard-button-style" id="modifDelete">Delete</button>
+                 <button class="delete-button-style" id="modifDelete">Delete</button>
              </div>
         </form>
 
@@ -221,7 +221,7 @@
                     <p class="delete-p-style">This will delete the account permanently. You cannot undo this action.</p>
                 </div>
                 <div class="delete-subcontainer-sub2">
-                    
+                    <input type="hidden" name="deleteItemsId" id="deleteItemsId">
                     <button class="cancel-button-style" id="cancel-button-delete">Cancel</button>
                     <button class="delete-button-style" id="delete-button-submit" name="delete-button-submit">Delete</button>
                 </div>
@@ -237,7 +237,39 @@
                     <p class="save-p-style">You have made changes. Do you want to discard or save them?</p>
                 </div>
                 <div class="save-subcontainer-sub2">
-                
+                    <input type="hidden" name="saveModifItemId" id="saveModifItemId">
+                    <input type="text" name="saveModifItemName" id="saveModifItemName" maxlength="50" placeholder="Name" required>
+                    <input type="number" name="saveModifCostPrice" id="saveModifCostPrice" placeholder="Cost Price" step="0.01" required>
+                    <input type="quantity" name="saveModifQuantity" id="saveModifQuantity" placeholder="Quantity" step="1" required>
+                    <input type="number" name="saveModifUnitPrice" id="saveModifUnitPrice" placeholder="Unit Price" step="0.01" required>
+                    <input type="text" name="saveModifSku" id="saveModifSku" placeholder="SKU" maxlength="30" required>
+                    <input type="text" name="saveModifReorderLevel" id="saveModifReorderLevel" placeholder="Reorder Level" step="1" required>
+                    <select name="saveModifItemSupplier" id="saveModifItemSupplier" class="select-style">
+                        <option value="" class="option-style">Select Supplier</option>
+                        <?php foreach ($suppliers as $supplier): ?>
+                            <option value="<?php echo $supplier['supplier_id']; ?>"><?php echo $supplier['name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <select name="saveModifItemCategory" id="saveModifItemCategory" class="select-style">
+                        <option value="" class="option-style">Select Category</option>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?php echo $category['category_id']; ?>"><?php echo $category['name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <select name="saveModifItemWarehouse" id="saveModifItemWarehouse" class="select-style">
+                        <option value="" class="option-style">Select Warehouse</option>
+                        <?php foreach ($warehouses as $warehouse): ?>
+                            <option value="<?php echo $warehouse['warehouse_id']; ?>"><?php echo $warehouse['name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <select name="saveModifItemStatus" id="saveModifItemStatus" class="select-style">
+                        <option value="" class="option-style">Select Status</option>
+                        <option value="Active" class="option-style">Active</option>
+                        <option value="Inactive" class="option-style">Inactive</option>
+                    </select>
                     <button class="cancel-button-style" id="cancel-button-save">Cancel</button>
                     <button class="confirm-save-button-style" id="save-button-submit" name="save-button-submit" type="submit">Save</button>
                 </div>
@@ -250,10 +282,10 @@
                 <input type="text" name="search" id="search" class="searchBar">
                 <button class="add-button-style" id="open">Add Items</button>
             </div>
-            <div class="content-container2" id="content-container2">
+            <ul class="content-container2" id="content-container2">
                 <!-- JavaScript -->
                  
-            </div>
+            </ul>
          </div>
         
     </section>
@@ -284,5 +316,41 @@
         $statement->bind_param("sdidsisiii", $itemName, $costPrice, $quantity, $unitPrice, $sku, $reorderLevel, $itemStatus, $itemSupplier, $itemCategory, $itemWarehouse);
         $statement->execute();
         $statement->close(); 
+    }
+?>
+
+<?php
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete-button-submit"])){
+        $item_id = $_POST["deleteItemsId"];
+
+        $sql = "DELETE FROM items WHERE item_id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->bind_param("i", $item_id);
+        $statement->execute();
+        $statement->close();
+    }
+?>
+
+<?php
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["save-button-submit"])){
+        $item_id = $_POST["saveModifItemId"];
+        $name = $_POST["saveModifItemName"];
+        $cost_price = $_POST["saveModifCostPrice"];
+        $quantity = $_POST["saveModifQuantity"];
+        $unit_price = $_POST["saveModifUnitPrice"];
+        $sku = $_POST["saveModifSku"];
+        $reorder_level = $_POST["saveModifReorderLevel"];
+        $supplier_id = $_POST["saveModifItemSupplier"];
+        $category_id = $_POST["saveModifItemCategory"];
+        $warehouse_id = $_POST["saveModifItemWarehouse"];
+        $status = $_POST["saveModifItemStatus"];
+
+        $sql = "UPDATE items SET name = ?, costPrice = ?, quantity = ?, unitPrice = ?, sku = ?, reorderLevel = ?, status = ?, supplier_id = ?, category_id = ?, warehouse_id = ? WHERE item_id = ?";
+        $statement = $conn->prepare($sql);
+        $statement->bind_param("sdidsisiiii", $name, $cost_price, $quantity, $unit_price, $sku, $reorder_level, $status, $supplier_id, $category_id, $warehouse_id, $item_id);
+        $statement->execute();
+        $statement->close();
     }
 ?>
