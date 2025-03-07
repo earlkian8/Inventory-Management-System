@@ -238,34 +238,34 @@
                 </div>
                 <div class="save-subcontainer-sub2">
                     <input type="hidden" name="saveModifItemId" id="saveModifItemId">
-                    <input type="text" name="saveModifItemName" id="saveModifItemName" maxlength="50" placeholder="Name" required>
-                    <input type="number" name="saveModifCostPrice" id="saveModifCostPrice" placeholder="Cost Price" step="0.01" required>
-                    <input type="quantity" name="saveModifQuantity" id="saveModifQuantity" placeholder="Quantity" step="1" required>
-                    <input type="number" name="saveModifUnitPrice" id="saveModifUnitPrice" placeholder="Unit Price" step="0.01" required>
-                    <input type="text" name="saveModifSku" id="saveModifSku" placeholder="SKU" maxlength="30" required>
-                    <input type="text" name="saveModifReorderLevel" id="saveModifReorderLevel" placeholder="Reorder Level" step="1" required>
-                    <select name="saveModifItemSupplier" id="saveModifItemSupplier" class="select-style">
+                    <input type="hidden" name="saveModifItemName" id="saveModifItemName" maxlength="50" placeholder="Name" required>
+                    <input type="hidden" name="saveModifCostPrice" id="saveModifCostPrice" placeholder="Cost Price" step="0.01" required>
+                    <input type="hidden" name="saveModifQuantity" id="saveModifQuantity" placeholder="Quantity" step="1" required>
+                    <input type="hidden" name="saveModifUnitPrice" id="saveModifUnitPrice" placeholder="Unit Price" step="0.01" required>
+                    <input type="hidden" name="saveModifSku" id="saveModifSku" placeholder="SKU" maxlength="30" required>
+                    <input type="hidden" name="saveModifReorderLevel" id="saveModifReorderLevel" placeholder="Reorder Level" step="1" required>
+                    <select style="display: none;" name="saveModifItemSupplier" id="saveModifItemSupplier" class="select-style">
                         <option value="" class="option-style">Select Supplier</option>
                         <?php foreach ($suppliers as $supplier): ?>
                             <option value="<?php echo $supplier['supplier_id']; ?>"><?php echo $supplier['name']; ?></option>
                         <?php endforeach; ?>
                     </select>
 
-                    <select name="saveModifItemCategory" id="saveModifItemCategory" class="select-style">
+                    <select style="display: none;" name="saveModifItemCategory" id="saveModifItemCategory" class="select-style">
                         <option value="" class="option-style">Select Category</option>
                         <?php foreach ($categories as $category): ?>
                             <option value="<?php echo $category['category_id']; ?>"><?php echo $category['name']; ?></option>
                         <?php endforeach; ?>
                     </select>
 
-                    <select name="saveModifItemWarehouse" id="saveModifItemWarehouse" class="select-style">
+                    <select style="display: none;" name="saveModifItemWarehouse" id="saveModifItemWarehouse" class="select-style">
                         <option value="" class="option-style">Select Warehouse</option>
                         <?php foreach ($warehouses as $warehouse): ?>
                             <option value="<?php echo $warehouse['warehouse_id']; ?>"><?php echo $warehouse['name']; ?></option>
                         <?php endforeach; ?>
                     </select>
 
-                    <select name="saveModifItemStatus" id="saveModifItemStatus" class="select-style">
+                    <select style="display: none;" name="saveModifItemStatus" id="saveModifItemStatus" class="select-style">
                         <option value="" class="option-style">Select Status</option>
                         <option value="Active" class="option-style">Active</option>
                         <option value="Inactive" class="option-style">Inactive</option>
