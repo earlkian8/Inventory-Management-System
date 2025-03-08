@@ -312,3 +312,73 @@ li:hover{
     margin-right: 1em;
     cursor: pointer;
 }
+
+.nameLabelStyle{
+    position: fixed;
+    transform: translate(-450px, -147px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.costPriceLabelStyle{
+    position: fixed;
+    transform: translate(45px, -147px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.quantityLabelStyle{
+    position: fixed;
+    transform: translate(-443px, -85px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.unitPriceLabelStyle{
+    position: fixed;
+    transform: translate(44px, -85px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.skuLabelStyle{
+    position: fixed;
+    transform: translate(-455px, -23px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.reorderLevelLabelStyle{
+    position: fixed;
+    transform: translate(57px, -23px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.supplierLabelStyle{
+    position: fixed;
+    transform: translate(-443px, 37px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.categoryLabelStyle{
+    position: fixed;
+    transform: translate(44px, 37px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.warehouseLabelStyle{
+    position: fixed;
+    transform: translate(-434px, 99px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.statusLabelStyle{
+    position: fixed;
+    transform: translate(35px, 99px);
+    background-color: #ffffff;
+    font-size: .75em;
+}

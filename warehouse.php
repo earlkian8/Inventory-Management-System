@@ -85,10 +85,15 @@
              <div class="modal-input-container">
                 <!-- Input -->
                  <div class="modal-input-subcontainer1">
+                    <label for="warehouseName" class="nameLabelStyle">Name</label>
                     <input type="text" name="warehouseName" id="warehouseName" placeholder="Name" maxlength="100" required>
+                    <label for="maximumStockLevel" class="stockLevelLabelStyle">Maximum Stock Level</label>
                     <input type="number" name="maximumStockLevel" id="maximumStockLevel" placeholder="Maximum Stock Level" pattern="^\d{7}$" maxlength="7" required>
+                    <label for="warehouserAddress" class="addressLabelStyle">Address</label>
                     <input type="text" name="warehouseAddress" id="warehouseAddress" placeholder="Address" maxlength="100" required>
+                    <label for="warehouseManager" class="warehouseManagerLabelStyle">Warehouse Manager</label>
                     <input type="text" name="warehouseManager" id="warehouseManager" placeholder="Warehouse Manager" maxlength="100" required>
+                    <label for="warehouseStatus" class="statusLabelStyle">Status</label>
                     <select name="warehouseStatus" id="warehouseStatus" class="select-style">
                         <option value="" class="option-style">Select Status</option>
                         <option value="Active" class="option-style">Active</option>
@@ -115,10 +120,15 @@
                 <!-- Input -->
                  <div class="modal-input-subcontainer1">
                     <input type="hidden" name="modifWarehouseId" id="modifWarehouseId">
+                    <label for="modifWarehouseName" class="nameLabelStyle">Name</label>
                     <input type="text" name="modifWarehouseName" id="modifWarehouseName" placeholder="Name" maxlength="100" required>
+                    <label for="modifMaximumStockLevel" class="stockLevelLabelStyle">Maximum Stock Level</label>
                     <input type="number" name="modifMaximumStockLevel" id="modifMaximumStockLevel" placeholder="Maximum Stock Level" pattern="^\d{7}$" maxlength="7" required>
+                    <label for="modifWarehouseAddress" class="addressLabelStyle">Address</label>
                     <input type="text" name="modifWarehouseAddress" id="modifWarehouseAddress" placeholder="Address" maxlength="100" required>
+                    <label for="modifWarehouseManager" class="warehouseManagerLabelStyle">Warehouse Manager</label>
                     <input type="text" name="modifWarehouseManager" id="modifWarehouseManager" placeholder="Warehouse Manager" maxlength="100" required>
+                    <label for="modifWarehouseStatus" class="statusLabelStyle">Status</label>
                     <select name="modifWarehouseStatus" id="modifWarehouseStatus" class="select-style">
                         <option value="" class="option-style">Select Status</option>
                         <option value="Active" class="option-style">Active</option>

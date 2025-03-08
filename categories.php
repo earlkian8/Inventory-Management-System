@@ -84,7 +84,9 @@
              <div class="modal-input-container">
                 <!-- Input -->
                  <div class="modal-input-subcontainer1">
+                    <label for="categoryName" class="nameLabelStyle">Name</label>
                     <input type="text" name="categoryName" id="categoryName" maxlength="50" required placeholder="Name">
+                    <label for="categoryDescription" class="descriptionLabelStyle">Description</label>
                     <textarea name="categoryDescription" id="categoryDescription" placeholder="Description"></textarea>
                  </div>
              </div>
@@ -107,7 +109,9 @@
                     <!-- Input -->
                     <div class="modal-input-subcontainer1">
                         <input type="hidden" name="modifCategoryId" id="modifCategoryId">
+                        <label for="modifCategoryName" class="nameLabelStyle">Name</label>
                         <input type="text" name="modifCategoryName" id="modifCategoryName" maxlength="50" required placeholder="Name">
+                        <label for="modifCategoryDescription" class="descriptionLabelStyle">Description</label>
                         <textarea name="modifCategoryDescription" id="modifCategoryDescription" placeholder="Description"></textarea>
                     </div>
                 </div>

@@ -305,3 +305,17 @@ li:hover{
     margin-right: 1em;
     cursor: pointer;
 }
+
+.nameLabelStyle{
+    position: fixed;
+    transform: translate(10px, -10px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.descriptionLabelStyle{
+    position: fixed;
+    transform: translate(10px, 59px);
+    background-color: #ffffff;
+    font-size: .75em;
+}

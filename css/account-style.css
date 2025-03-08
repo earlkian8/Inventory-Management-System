@@ -425,3 +425,66 @@ li:hover{
     font-size: .75em;
 
 }
+
+.firstNameLabelStyle{
+    position: fixed;
+    transform: translate(10px, -42px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.middleNameLabelStyle{
+    position: fixed;
+    transform: translate(362px, -42px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.lastNameLabelStyle{
+    position: fixed;
+    transform: translate(715px, -42px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.emailLabelStyle{
+    position: fixed;
+    transform: translate(10px, -55px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.usernameLabelStyle{
+    position: fixed;
+    transform: translate(536px, -55px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.addressLabelStyle{
+    position: fixed;
+    transform: translate(10px, 9px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.passwordLabelStyle{
+    position: fixed;
+    transform: translate(536px, 9px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.genderLabelStyle{
+    position: fixed;
+    transform: translate(10px, -25px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.accountTypeLabelStyle{
+    position: fixed;
+    transform: translate(536px, -25px);
+    background-color: #ffffff;
+    font-size: .75em;
+}

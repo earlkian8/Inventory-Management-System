@@ -308,3 +308,38 @@ li:hover{
     color: #ffffff;
     border-style: none;
 }
+
+.nameLabelStyle{
+    position: fixed;
+    transform: translate(10px, -173px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.stockLevelLabelStyle{
+    position: fixed;
+    transform: translate(10px, -99px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.addressLabelStyle{
+    position: fixed;
+    transform: translate(10px, -25px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.warehouseManagerLabelStyle{
+    position: fixed;
+    transform: translate(10px, 50px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.statusLabelStyle{
+    position: fixed;
+    transform: translate(10px, 124px);
+    background-color: #ffffff;
+    font-size: .75em;
+}

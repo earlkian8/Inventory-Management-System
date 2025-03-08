@@ -113,34 +113,45 @@
                 <!-- Input -->
                  <div class="modal-input-subcontainer1">
                     <div class="modal-input-subcontainer1-sub1">
-                    <input type="text" name="itemName" id="itemName" maxlength="50" placeholder="Name" required>
+
+                        <label for="itemName" class="nameLabelStyle">Name</label>
+                        <input type="text" name="itemName" id="itemName" maxlength="50" placeholder="Name" required>
+                        <label for="costPrice" class="costPriceLabelStyle">Cost Price</label>
                         <input type="number" name="costPrice" id="costPrice" placeholder="Cost Price" step="0.01" required>
+                        <label for="quantity" class="quantityLabelStyle">Quantity</label>
                         <input type="quantity" name="quantity" id="quantity" placeholder="Quantity" step="1" required>
+                        <label for="unitPrice" class="unitPriceLabelStyle">Unit Price</label>
                         <input type="number" name="unitPrice" id="unitPrice" placeholder="Unit Price" step="0.01" required>
+                        <label for="sku" class="skuLabelStyle">SKU</label>
                         <input type="text" name="sku" id="sku" placeholder="SKU" maxlength="30" required>
+                        <label for="reorderLevel" class="reorderLevelLabelStyle">Reorder Level</label>
                         <input type="text" name="reorderLevel" id="reorderLevel" placeholder="Reorder Level" step="1" required>
 
+                        <label for="itemSupplier" class="supplierLabelStyle">Supplier</label>
                         <select name="itemSupplier" id="itemSupplier" class="select-style">
                             <option value="" class="option-style">Select Supplier</option>
                             <?php foreach ($suppliers as $supplier): ?>
                                 <option value="<?php echo $supplier['supplier_id']; ?>"><?php echo $supplier['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
-
+                        
+                        <label for="itemCategory" class="categoryLabelStyle">Category</label>
                         <select name="itemCategory" id="itemCategory" class="select-style">
                             <option value="" class="option-style">Select Category</option>
                             <?php foreach ($categories as $category): ?>
                                 <option value="<?php echo $category['category_id']; ?>"><?php echo $category['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
-
+                        
+                        <label for="itemWarehouse" class="warehouseLabelStyle">Warehouse</label>
                         <select name="itemWarehouse" id="itemWarehouse" class="select-style">
                             <option value="" class="option-style">Select Warehouse</option>
                             <?php foreach ($warehouses as $warehouse): ?>
                                 <option value="<?php echo $warehouse['warehouse_id']; ?>"><?php echo $warehouse['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
-
+                        
+                        <label for="itemStatus" class="statusLabelStyle">Status</label>
                         <select name="itemStatus" id="itemStatus" class="select-style">
                             <option value="" class="option-style">Select Status</option>
                             <option value="Active" class="option-style">Active</option>
@@ -169,34 +180,44 @@
                  <div class="modal-input-subcontainer1">
                     <div class="modal-input-subcontainer1-sub1">
                         <input type="hidden" name="modifItemId" id="modifItemId">
+                        <label for="modifItemName" class="nameLabelStyle">Name</label>
                         <input type="text" name="modifItemName" id="modifItemName" maxlength="50" placeholder="Name" required>
+                        <label for="modifCostPrice" class="costPriceLabelStyle">Cost Price</label>
                         <input type="number" name="modifCostPrice" id="modifCostPrice" placeholder="Cost Price" step="0.01" required>
+                        <label for="modifQuantity" class="quantityLabelStyle">Quantity</label>
                         <input type="quantity" name="modifQuantity" id="modifQuantity" placeholder="Quantity" step="1" required>
+                        <label for="modifUnitPrice" class="unitPriceLabelStyle">Unit Price</label>
                         <input type="number" name="modifUnitPrice" id="modifUnitPrice" placeholder="Unit Price" step="0.01" required>
+                        <label for="modifSku" class="skuLabelStyle">SKU</label>
                         <input type="text" name="modifSku" id="modifSku" placeholder="SKU" maxlength="30" required>
+                        <label for="modifReorderLevel" class="reorderLevelLabelStyle">Reorder Level</label>
                         <input type="text" name="modifReorderLevel" id="modifReorderLevel" placeholder="Reorder Level" step="1" required>
-
+                        
+                        <label for="modifItemSupplier" class="supplierLabelStyle">Supplier</label>
                         <select name="modifItemSupplier" id="modifItemSupplier" class="select-style">
                             <option value="" class="option-style">Select Supplier</option>
                             <?php foreach ($suppliers as $supplier): ?>
                                 <option value="<?php echo $supplier['supplier_id']; ?>"><?php echo $supplier['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
-
+                        
+                        <label for="modifItemCategory" class="categoryLabelStyle">Category</label>
                         <select name="modifItemCategory" id="modifItemCategory" class="select-style">
                             <option value="" class="option-style">Select Category</option>
                             <?php foreach ($categories as $category): ?>
                                 <option value="<?php echo $category['category_id']; ?>"><?php echo $category['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
-
+                        
+                        <label for="modifItemWarehouse" class="warehouseLabelStyle">Warehouse</label>
                         <select name="modifItemWarehouse" id="modifItemWarehouse" class="select-style">
                             <option value="" class="option-style">Select Warehouse</option>
                             <?php foreach ($warehouses as $warehouse): ?>
                                 <option value="<?php echo $warehouse['warehouse_id']; ?>"><?php echo $warehouse['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
-
+                        
+                        <label for="modifItemStatus" class="statusLabelStyle">Status</label>
                         <select name="modifItemStatus" id="modifItemStatus" class="select-style">
                             <option value="" class="option-style">Select Status</option>
                             <option value="Active" class="option-style">Active</option>

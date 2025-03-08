@@ -294,3 +294,38 @@ li:hover{
     margin-right: 1em;
     cursor: pointer;
 }
+
+.nameLabelStyle{
+    position: fixed;
+    transform: translate(10px, -173px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.emailLabelStyle{
+    position: fixed;
+    transform: translate(10px, -99px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.contactPersonLabelStyle{
+    position: fixed;
+    transform: translate(10px, -25px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
+
+.addressLabelStyle{
+    position: fixed;
+    transform: translate(10px, 50px);
+    background-color: #ffffff;
+    font-size: .75em; 
+}
+
+.paymentTermsLabelStyle{
+    position: fixed;
+    transform: translate(10px, 125px);
+    background-color: #ffffff;
+    font-size: .75em;
+}
