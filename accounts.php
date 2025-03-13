@@ -16,10 +16,8 @@ include "db_connection.php";
 <body>
     <header class="header-style">
         <div class="header-container1">
-            <div class="header-container2">
-                <img src="/images/burger-icon-ffffff.png" alt="Burger" class="img-style-header">
-                <img src="/images/inventify-logo-ffffff.png" alt="Logo" class="img-style-header">
-            </div>
+            <img src="/images/burger-icon-ffffff.png" alt="Burger" class="img-style-header">
+            <img src="/images/inventify-logo-ffffff.png" alt="Logo" class="img-style-header">
             <div class="header-container3">
                 <img src="/images/notification-icon-ffffff.png" alt="Notification" class="img-style-header">
                 <a href="index.php"><img src="/images/logout-icon-ffffff.png" alt="Logout" class="img-style-header"></a>
