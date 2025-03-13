@@ -137,6 +137,12 @@
     border-color: #c0c0c0;
 }
 
+#warehouseNameContainer, #warehouseMaximumStockLevelContainer, #warehouseAddressContainer, #warehouseManagerContainer, #warehouseStatusContainer, #modifWarehouseNameContainer, #modifWarehouseMaximumStockLevelContainer, #modifWarehouseAddressContainer, #modifWarehouseManagerContainer, #modifWarehouseStatusContainer{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
 #warehouseName, #maximumStockLevel, #warehouseAddress, #warehouseManager, #warehouseStatus, #modifWarehouseName, #modifMaximumStockLevel, #modifWarehouseAddress, #modifWarehouseManager, #modifWarehouseStatus:focus{
     outline: none;
     border-color: #c0c0c0;
@@ -311,35 +317,35 @@ li:hover{
 
 .nameLabelStyle{
     position: fixed;
-    transform: translate(10px, -173px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .stockLevelLabelStyle{
     position: fixed;
-    transform: translate(10px, -99px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .addressLabelStyle{
     position: fixed;
-    transform: translate(10px, -25px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .warehouseManagerLabelStyle{
     position: fixed;
-    transform: translate(10px, 50px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .statusLabelStyle{
     position: fixed;
-    transform: translate(10px, 124px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }

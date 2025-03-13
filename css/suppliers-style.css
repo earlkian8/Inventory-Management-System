@@ -138,6 +138,11 @@
     border-color: #c0c0c0;
 }
 
+#supplierNameContainer, #supplierEmailContainer, #supplierContactPersonContainer, #supplierAddressContainer, #supplierPaymentTermsContainer, #modifSupplierNameContainer, #modifSupplierEmailContainer, #modifSupplierContactPersonContainer, #modifSupplierAddressContainer, #modifSupplierPaymentTermsContainer{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
 #supplierName, #supplierEmail, #supplierContactPerson, #supplierAddress, #supplierPaymentTerms, #modifSupplierName, #modifSupplierEmail, #modifSupplierContactPerson, #modifSupplierAddress, #modifSupplierPaymentTerms:focus{
     outline: none;
     border-color: #c0c0c0;
@@ -297,35 +302,35 @@ li:hover{
 
 .nameLabelStyle{
     position: fixed;
-    transform: translate(10px, -173px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .emailLabelStyle{
     position: fixed;
-    transform: translate(10px, -99px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .contactPersonLabelStyle{
     position: fixed;
-    transform: translate(10px, -25px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .addressLabelStyle{
     position: fixed;
-    transform: translate(10px, 50px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em; 
 }
 
 .paymentTermsLabelStyle{
     position: fixed;
-    transform: translate(10px, 125px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }

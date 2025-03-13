@@ -137,13 +137,19 @@
 
 
 #itemName, #costPrice, #quantity, #unitPrice, #sku, #reorderLevel, #modifItemName, #modifCostPrice, #modifQuantity, #modifUnitPrice, #modifSku, #modifReorderLevel, .select-style{
-    width: 45%;
+    width: 99%;
     padding: 1em;
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
     border-color: #c0c0c0;
     margin: 0 .50em;
+}
+
+#itemNameContainer, #costPriceContainer, #quantityContainer, #unitPriceContainer, #skuContainer, #reorderLevelContainer, #itemSupplierContainer, #itemCategoryContainer, #itemWarehouseContainer, #itemStatusContainer,
+#modifItemNameContainer, #modifCostPriceContainer, #modifQuantityContainer, #modifUnitPriceContainer, #modifSkuContainer, #modifReorderLevelContainer, #modifItemSupplierContainer, #modifItemCategoryContainer, #modifItemWarehouseContainer, #modifItemStatusContainer{
+    width: 45%;
+    height: auto;
 }
 
 #itemName, #costPrice, #quantity, #unitPrice, #sku, #reorderLevel, #modifItemName, #modifCostPrice, #modifQuantity, #modifUnitPrice, #modifSku, #modifReorderLevel, .select-style:focus{
@@ -315,70 +321,70 @@ li:hover{
 
 .nameLabelStyle{
     position: fixed;
-    transform: translate(-450px, -147px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .costPriceLabelStyle{
     position: fixed;
-    transform: translate(45px, -147px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .quantityLabelStyle{
     position: fixed;
-    transform: translate(-443px, -85px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .unitPriceLabelStyle{
     position: fixed;
-    transform: translate(44px, -85px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .skuLabelStyle{
     position: fixed;
-    transform: translate(-455px, -23px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .reorderLevelLabelStyle{
     position: fixed;
-    transform: translate(57px, -23px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .supplierLabelStyle{
     position: fixed;
-    transform: translate(-443px, 37px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .categoryLabelStyle{
     position: fixed;
-    transform: translate(44px, 37px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .warehouseLabelStyle{
     position: fixed;
-    transform: translate(-434px, 99px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .statusLabelStyle{
     position: fixed;
-    transform: translate(35px, 99px);
+    transform: translate(14px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }

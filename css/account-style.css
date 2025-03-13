@@ -151,7 +151,7 @@
 }
 
 #firstName, #middleName, #lastName, #accountFirstName, #accountMiddleName, #accountLastName{
-    width: 32.5%;
+    width: 100%;
     padding: 1em;
     margin-bottom: .25em;
     border-radius: 5px;
@@ -160,13 +160,23 @@
     border-color: #c0c0c0;
 }
 
+#firstNameContainer, #middleNameContainer, #lastNameContainer, #modifFirstNameContainer, #modifMiddleNameContainer, #modifLastNameContainer {
+    width: 32.5%;
+    height: auto;
+}
+
 #email, #username, #address, #password, #dateBirth, #accountEmail, #accountUsername, #accountAddress, #accountPassword, #accountDateBirth, .select-style{
-    width: 49.5%;
+    width: 100%;
     padding: 1em;
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
     border-color: #c0c0c0;
+}
+
+#emailContainer, #usernameContainer, #addressContainer, #passwordContainer, #dateBirthContainer, #genderContainer, #accountTypeContainer, #modifEmailContainer, #modifUsernameContainer, #modifAddressContainer, #modifPasswordContainer, #modifDateBirthContainer, #modifGenderContainer, #modifAccountTypeContainer{
+    width: 49.5%;
+    height: auto;
 }
 
 .modal-input-subcontainer2-sub3{
@@ -428,63 +438,63 @@ li:hover{
 
 .firstNameLabelStyle{
     position: fixed;
-    transform: translate(10px, -42px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .middleNameLabelStyle{
     position: fixed;
-    transform: translate(362px, -42px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .lastNameLabelStyle{
     position: fixed;
-    transform: translate(715px, -42px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .emailLabelStyle{
     position: fixed;
-    transform: translate(10px, -55px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .usernameLabelStyle{
     position: fixed;
-    transform: translate(536px, -55px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .addressLabelStyle{
     position: fixed;
-    transform: translate(10px, 9px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .passwordLabelStyle{
     position: fixed;
-    transform: translate(536px, 9px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .genderLabelStyle{
     position: fixed;
-    transform: translate(10px, -25px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }
 
 .accountTypeLabelStyle{
     position: fixed;
-    transform: translate(536px, -25px);
+    transform: translate(10px, -10px);
     background-color: #ffffff;
     font-size: .75em;
 }

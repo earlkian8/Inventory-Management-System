@@ -84,16 +84,26 @@
             <div class="modal-input-container">
                <!-- Input -->
                 <div class="modal-input-subcontainer1">
-                    <label for="supplierName" class="nameLabelStyle">Name</label>
-                   <input type="text" name="supplierName" id="supplierName" maxlength="50" required placeholder="Name">
-                   <label for="supplierEmail" class="emailLabelStyle">Email</label>
-                   <input type="text" name="supplierEmail" id="supplierEmail" maxlength="50" required placeholder="Email">
-                   <label for="supplierContactPerson" class="contactPersonLabelStyle">Contact Person</label>
-                   <input type="text" name="supplierContactPerson" id="supplierContactPerson" maxlength="50" required placeholder="Contact Person">
-                   <label for="supplierAddress" class="addressLabelStyle">Address</label>
-                   <input type="text" name="supplierAddress" id="supplierAddress" maxlength="50" required placeholder="Address">
-                   <label for="supplierPaymentTerms" class="paymentTermsLabelStyle">Payment Terms</label>
-                   <input type="text" name="supplierPaymentTerms" id="supplierPaymentTerms" maxlength="30" required placeholder="Payment Terms">
+                    <div id="supplierNameContainer">
+                        <label for="supplierName" class="nameLabelStyle">Name</label>
+                        <input type="text" name="supplierName" id="supplierName" maxlength="50" required placeholder="Name">
+                    </div>
+                    <div id="supplierEmailContainer">
+                        <label for="supplierEmail" class="emailLabelStyle">Email</label>
+                        <input type="text" name="supplierEmail" id="supplierEmail" maxlength="50" required placeholder="Email">
+                    </div>
+                    <div id="supplierContactPersonContainer">
+                        <label for="supplierContactPerson" class="contactPersonLabelStyle">Contact Person</label>
+                        <input type="text" name="supplierContactPerson" id="supplierContactPerson" maxlength="50" required placeholder="Contact Person">
+                    </div>
+                    <div id="supplierAddressContainer">
+                        <label for="supplierAddress" class="addressLabelStyle">Address</label>
+                        <input type="text" name="supplierAddress" id="supplierAddress" maxlength="50" required placeholder="Address">
+                    </div>
+                    <div id="supplierPaymentTermsContainer">
+                        <label for="supplierPaymentTerms" class="paymentTermsLabelStyle">Payment Terms</label>
+                        <input type="text" name="supplierPaymentTerms" id="supplierPaymentTerms" maxlength="30" required placeholder="Payment Terms">
+                    </div>
                 </div>
             </div>
             <div class="modal-button-container">
@@ -116,16 +126,26 @@
                 <div class="modal-input-subcontainer1">
                     <input type="hidden" name="modifSupplierId" id="modifSupplierId">
                     
-                    <label for="modifSupplierName" class="nameLabelStyle">Name</label>
-                    <input type="text" name="modifSupplierName" id="modifSupplierName" maxlength="50" required placeholder="Name">
-                    <label for="modifSupplierEmail" class="emailLabelStyle">Email</label>
-                    <input type="text" name="modifSupplierEmail" id="modifSupplierEmail" maxlength="50" required placeholder="Email">
-                    <label for="modifSupplierContactPerson" class="contactPersonLabelStyle">Contact Person</label>
-                    <input type="text" name="modifSupplierContactPerson" id="modifSupplierContactPerson" maxlength="50" required placeholder="Contact Person">
-                    <label for="modifSupplierAddress" class="addressLabelStyle">Address</label>
-                    <input type="text" name="modifSupplierAddress" id="modifSupplierAddress" maxlength="50" required placeholder="Address">
-                    <label for="modifSupplierPaymentTerms" class="paymentTermsLabelStyle">Payment Terms</label>
-                    <input type="text" name="modifSupplierPaymentTerms" id="modifSupplierPaymentTerms" maxlength="30" required placeholder="Payment Terms">
+                    <div id="modifSupplierNameContainer">
+                        <label for="modifSupplierName" class="nameLabelStyle">Name</label>
+                        <input type="text" name="modifSupplierName" id="modifSupplierName" maxlength="50" required placeholder="Name">
+                    </div>
+                    <div id="modifSupplierEmailContainer">
+                        <label for="modifSupplierEmail" class="emailLabelStyle">Email</label>
+                        <input type="text" name="modifSupplierEmail" id="modifSupplierEmail" maxlength="50" required placeholder="Email">
+                    </div>
+                    <div id="modifSupplierContactPersonContainer">
+                        <label for="modifSupplierContactPerson" class="contactPersonLabelStyle">Contact Person</label>
+                        <input type="text" name="modifSupplierContactPerson" id="modifSupplierContactPerson" maxlength="50" required placeholder="Contact Person">
+                    </div>
+                    <div id="modifSupplierAddressContainer">
+                        <label for="modifSupplierAddress" class="addressLabelStyle">Address</label>
+                        <input type="text" name="modifSupplierAddress" id="modifSupplierAddress" maxlength="50" required placeholder="Address">
+                    </div>
+                    <div id="modifSupplierPaymentTermsContainer">
+                        <label for="modifSupplierPaymentTerms" class="paymentTermsLabelStyle">Payment Terms</label>
+                        <input type="text" name="modifSupplierPaymentTerms" id="modifSupplierPaymentTerms" maxlength="30" required placeholder="Payment Terms">
+                    </div>
                 </div>
             </div>
             <div class="modal-button-container">

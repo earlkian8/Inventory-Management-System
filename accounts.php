@@ -87,44 +87,64 @@ include "db_connection.php";
                 <!---->
                 <div class="modal-input-subcontainer1">
                     <div class="modal-input-subcontainer-sub1">
-                        <label for="firstName" class="firstNameLabelStyle">First Name</label>
-                        <input type="text" name="firstName" id="firstName" required maxlength="50" placeholder="First Name" class="required-input">
-                        <label for="middleName" class="middleNameLabelStyle">Middle Name</label>
-                        <input type="text" name="middleName" id="middleName" maxlength="50" placeholder="Middle Name" class="required-input">
-                        <label for="lastName" class="lastNameLabelStyle">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" required maxlength="50" placeholder="Last Name" class="required-input">
+                        <div id="firstNameContainer">
+                            <label for="firstName" class="firstNameLabelStyle">First Name</label>
+                            <input type="text" name="firstName" id="firstName" required maxlength="50" placeholder="First Name" class="required-input">
+                        </div>
+                        <div id="middleNameContainer">
+                            <label for="middleName" class="middleNameLabelStyle">Middle Name</label>
+                            <input type="text" name="middleName" id="middleName" maxlength="50" placeholder="Middle Name" class="required-input">
+                        </div>
+                        <div id="lastNameContainer">
+                            <label for="lastName" class="lastNameLabelStyle">Last Name</label>
+                            <input type="text" name="lastName" id="lastName" required maxlength="50" placeholder="Last Name" class="required-input">
+                        </div>
                     </div>
                     <div class="modal-input-subcontainer-sub2">
-                        <label for="email" class="emailLabelStyle">Email</label>
-                        <input type="email" name="email" id="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="50" placeholder="Email" class="required-input">
-                        <label for="username" class="usernameLabelStyle">Username</label>
-                        <input type="text" name="username" id="username" required maxlength="30" placeholder="Username" class="required-input">
-                        <label for="address" class="addressLabelStyle">Address</label>
-                        <input type="text" name="address" id="address" required maxlength="100" placeholder="Address" class="required-input">
-                        <label for="password" class="passwordLabelStyle">Password</label>
-                        <input type="password" name="password" id="password" required maxlength="255" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
-                        title="Must contain at least 8 characters, including one uppercase, one lowercase, one number, and one special character." placeholder="Password" class="required-input">
+                        <div id="emailContainer">
+                            <label for="email" class="emailLabelStyle">Email</label>
+                            <input type="email" name="email" id="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="50" placeholder="Email" class="required-input">
+                        </div>
+                        <div id="usernameContainer">
+                            <label for="username" class="usernameLabelStyle">Username</label>
+                            <input type="text" name="username" id="username" required maxlength="30" placeholder="Username" class="required-input">
+                        </div>
+                        <div id="addressContainer">
+                            <label for="address" class="addressLabelStyle">Address</label>
+                            <input type="text" name="address" id="address" required maxlength="100" placeholder="Address" class="required-input">
+                        </div>
+                        <div id="passwordContainer">
+                            <label for="password" class="passwordLabelStyle">Password</label>
+                            <input type="password" name="password" id="password" required maxlength="255" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
+                            title="Must contain at least 8 characters, including one uppercase, one lowercase, one number, and one special character." placeholder="Password" class="required-input">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-input-subcontainer2">
                     <div class="modal-input-subcontainer2-sub3">
-                        <label for="gender" class="genderLabelStyle">Gender</label>
-                        <select name="gender" id="gender" class="select-style" required class="required-input">
-                            <option value="" class="option-style">Select Gender</option> 
-                            <option value="Male" class="option-style">Male</option>
-                            <option value="Female" class="option-style">Female</option>
-                        </select>
-                        <label for="accountType" class="accountTypeLabelStyle">Account Type</label>
-                        <select name="accountType" id="accountType" class="select-style" required class="required-input">
-                            <option value="" class="option-style">Select Account Type</option>
-                            <option value="Admin" class="option-style">Admin</option>
-                            <option value="User" class="option-style">User</option>
-                        </select>
+                        <div id="genderContainer">
+                            <label for="gender" class="genderLabelStyle">Gender</label>
+                            <select name="gender" id="gender" class="select-style" required class="required-input">
+                                <option value="" class="option-style">Select Gender</option> 
+                                <option value="Male" class="option-style">Male</option>
+                                <option value="Female" class="option-style">Female</option>
+                            </select>
+                        </div>
+                        <div id="accountTypeContainer"> 
+                            <label for="accountType" class="accountTypeLabelStyle">Account Type</label>
+                            <select name="accountType" id="accountType" class="select-style" required class="required-input">
+                                <option value="" class="option-style">Select Account Type</option>
+                                <option value="Admin" class="option-style">Admin</option>
+                                <option value="User" class="option-style">User</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-input-subcontainer2-sub4">
-                        <label for="dateBirth" class="label-style">Date of Birth</label>
-                        <input type="date" name="dateBirth" id="dateBirth" required placeholder="Date of Birth" pattern="^(19[0-9]{2}|20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$" 
-                        title="Year must be 1900 or later, month must be 01-12, and day must be 01-30." class="required-input">
+                        <div id="dateBirthContainer">
+                            <label for="dateBirth" class="label-style">Date of Birth</label>
+                            <input type="date" name="dateBirth" id="dateBirth" required placeholder="Date of Birth" pattern="^(19[0-9]{2}|20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$" 
+                            title="Year must be 1900 or later, month must be 01-12, and day must be 01-30." class="required-input">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,44 +169,64 @@ include "db_connection.php";
                 <div class="modal-input-subcontainer1">
                     <div class="modal-input-subcontainer-sub1">
                         <input type="hidden" name="accountId" id="accountId">
-                        <label for="accountfirstName" class="firstNameLabelStyle">First Name</label>
-                        <input type="text" name="accountFirstName" id="accountFirstName" required maxlength="50" placeholder="First Name" class="required-input">
-                        <label for="accountMiddleName" class="middleNameLabelStyle">Middle Name</label>
-                        <input type="text" name="accountMiddleName" id="accountMiddleName" maxlength="50" placeholder="Middle Name" class="required-input">
-                        <label for="accountLastName" class="lastNameLabelStyle">Last Name</label>
-                        <input type="text" name="accountLastName" id="accountLastName" required maxlength="50" placeholder="Last Name" class="required-input">
+                        <div id="modifFirstNameContainer">
+                            <label for="accountfirstName" class="firstNameLabelStyle">First Name</label>
+                            <input type="text" name="accountFirstName" id="accountFirstName" required maxlength="50" placeholder="First Name" class="required-input">
+                        </div>
+                        <div id="modifMiddleNameContainer">
+                            <label for="accountMiddleName" class="middleNameLabelStyle">Middle Name</label>
+                            <input type="text" name="accountMiddleName" id="accountMiddleName" maxlength="50" placeholder="Middle Name" class="required-input">
+                        </div>
+                        <div id="modifLastNameContainer">
+                            <label for="accountLastName" class="lastNameLabelStyle">Last Name</label>
+                            <input type="text" name="accountLastName" id="accountLastName" required maxlength="50" placeholder="Last Name" class="required-input">
+                        </div>
                     </div>
                     <div class="modal-input-subcontainer-sub2">
-                        <label for="accountEmail" class="emailLabelStyle">Email</label>
-                        <input type="email" name="accountEmail" id="accountEmail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="50" placeholder="Email" class="required-input"> 
-                        <label for="accountUsername" class="usernameLabelStyle">Username</label>
-                        <input type="text" name="accountUsername" id="accountUsername" required maxlength="30" placeholder="Username" class="required-input">
-                        <label for="accountAddress" class="addressLabelStyle">Address</label>
-                        <input type="text" name="accountAddress" id="accountAddress" required maxlength="100" placeholder="Address" class="required-input">
-                        <label for="accountPassword" class="passwordLabelStyle">Password</label>
-                        <input type="password" name="accountPassword" id="accountPassword" required maxlength="255" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
-                        title="Must contain at least 8 characters, including one uppercase, one lowercase, one number, and one special character." placeholder="Password" class="required-input">
+                        <div id="modifEmailContainer">
+                            <label for="accountEmail" class="emailLabelStyle">Email</label>
+                            <input type="email" name="accountEmail" id="accountEmail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="50" placeholder="Email" class="required-input">
+                        </div>
+                        <div id="modifUsernameContainer">
+                            <label for="accountUsername" class="usernameLabelStyle">Username</label>
+                            <input type="text" name="accountUsername" id="accountUsername" required maxlength="30" placeholder="Username" class="required-input">
+                        </div>
+                        <div id="modifAddressContainer">
+                            <label for="accountAddress" class="addressLabelStyle">Address</label>
+                            <input type="text" name="accountAddress" id="accountAddress" required maxlength="100" placeholder="Address" class="required-input">
+                        </div>
+                        <div id="modifPasswordContainer">
+                            <label for="accountPassword" class="passwordLabelStyle">Password</label>
+                            <input type="password" name="accountPassword" id="accountPassword" required maxlength="255" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" 
+                            title="Must contain at least 8 characters, including one uppercase, one lowercase, one number, and one special character." placeholder="Password" class="required-input">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-input-subcontainer2">
                     <div class="modal-input-subcontainer2-sub3">
-                        <label for="accountGender" class="genderLabelStyle">Gender</label>
-                        <select name="accountGender" id="accountGender" class="select-style" required class="required-input">
-                            <option value="" class="option-style">Select Gender</option> 
-                            <option value="Male" class="option-style">Male</option>
-                            <option value="Female" class="option-style">Female</option>
-                        </select>
-                        <label for="accountAccountType" class="accountTypeLabelStyle">Account Type</label>
-                        <select name="accountAccountType" id="accountAccountType" class="select-style" required class="required-input">
-                            <option value="" class="option-style">Select Account Type</option>
-                            <option value="Admin" class="option-style">Admin</option>
-                            <option value="User" class="option-style">User</option>
-                        </select>
+                        <div id="modifGenderContainer">
+                            <label for="accountGender" class="genderLabelStyle">Gender</label>
+                            <select name="accountGender" id="accountGender" class="select-style" required class="required-input">
+                                <option value="" class="option-style">Select Gender</option> 
+                                <option value="Male" class="option-style">Male</option>
+                                <option value="Female" class="option-style">Female</option>
+                            </select>
+                        </div>
+                        <div id="modifAccountTypeContainer">
+                            <label for="accountAccountType" class="accountTypeLabelStyle">Account Type</label>
+                            <select name="accountAccountType" id="accountAccountType" class="select-style" required class="required-input">
+                                <option value="" class="option-style">Select Account Type</option>
+                                <option value="Admin" class="option-style">Admin</option>
+                                <option value="User" class="option-style">User</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-input-subcontainer2-sub4">
-                        <label for="accountdateBirth" class="label-style">Date of Birth</label>
-                        <input type="date" name="accountDateBirth" id="accountDateBirth" required placeholder="Date of Birth" pattern="^(19[0-9]{2}|20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$" 
-                        title="Year must be 1900 or later, month must be 01-12, and day must be 01-30." class="required-input">
+                        <div id="modifDateBirthContainer">
+                            <label for="accountdateBirth" class="label-style">Date of Birth</label>
+                            <input type="date" name="accountDateBirth" id="accountDateBirth" required placeholder="Date of Birth" pattern="^(19[0-9]{2}|20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$" 
+                            title="Year must be 1900 or later, month must be 01-12, and day must be 01-30." class="required-input">
+                        </div>
                     </div>
                 </div>
             </div>
