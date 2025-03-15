@@ -65,7 +65,7 @@
         </div>
     </aside>
     <section class="section-style">
-        <p>oh yeah bisaya on the loose</p>
+        <!-- Cydrick -->
     </section>
 </body>
 </html>
