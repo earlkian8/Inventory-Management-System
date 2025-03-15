@@ -1,3 +1,10 @@
+<?php
+
+    include "../db_connection.php";
+?>
+
+<!-- Amparan -->
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +72,7 @@
         </div>
     </aside>
     <section class="section-style">
-        <!-- Cydrick -->
+        
     </section>
 </body>
 </html>
