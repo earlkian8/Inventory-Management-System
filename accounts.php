@@ -289,10 +289,26 @@ include "db_connection.php";
                 <input type="text" name="search" id="search" class="searchBar">
                 <button class="add-button-style" id="open">Create Account</button>
             </div>
-            <ul class="content-container2" id="content">
+            <div class="content-container2" id="content">
                 <!-- JavaScript -->
-                 
-            </ul>
+                 <table class="table-style">
+                    <thead>
+                        <tr class="tr-head-style">
+                            <th class="th-style" id="th-name">Name</th>
+                            <th class="th-style" id="th-username">Username</th>
+                            <th class="th-style" id="th-accountType">Account Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-content">
+                        <!-- Javascript -->
+                         <tr class="tr-body-style">
+                            <td class="td-style">Earl Kian A. Bancayrin</td>
+                            <td class="td-style">earlkian08</td>
+                            <td class="td-style">Admin</td>
+                         </tr>
+                    </tbody>
+                 </table>
+            </div>
         </div>
     </section>
     <script src="/js/account.js"></script>
