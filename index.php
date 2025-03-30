@@ -2,17 +2,21 @@
 
 session_start();
 
-include "db_connection.php";
+include "api/database.php";
+include "class/Accounts.php";
 
-$sql = "SELECT COUNT(*) as count FROM accounts WHERE account_type = 'admin'";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
+$database = new Database();
+$conn = $database->getConnection();
 
-if ($row['count'] == 0){
-    header("Location: auth/welcome_page.php");
+$acc = new Accounts($conn);
+
+$row = $acc->getAccountCountByAdmin();
+if ($row["count"] == 0) {
+    header("Location: welcome/welcome.php");
     exit();
-} else{
+} else {
     header("Location: login.php");
     exit();
 }
+
 ?>

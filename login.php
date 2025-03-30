@@ -1,6 +1,31 @@
 <?php
 
-include "db_connection.php";
+    include "api/database.php";
+    include "class/Accounts.php";
+    
+    $database = new Database();
+    $conn = $database->getConnection();
+
+    $acc = new Accounts($conn);
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])){
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+        
+        $result = $acc->login($username, $password);
+        
+        if($result){
+            
+            if($result["account_type"] == "Admin"){
+                header("Location: dashboard.php");
+                exit();
+            }else{
+                header("Location: pos.php");
+            }
+        }else{
+            echo "<script>console.log('invalid');</script>";
+        }
+    }
 
 ?>
 
@@ -10,63 +35,33 @@ include "db_connection.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventify</title>
-    <link rel="stylesheet" href="/css/login-style.css">
+    <link rel="stylesheet" href="style/login.css">
 </head>
 <body>
-    <div class="login-box">
-        <div class="container1">
-            <img src="images/inventify-logo-383838.png" alt="Inventify Logo" height="250px" >
+    <div class="box-container">
+        <div class="image-container">
+            <img src="images/inventify-logo-383838.png" alt="Logo" class="logo-style">
+        </div>
+        <div class="title-container">
             <h1 class="h1-style">Inventify</h1>
         </div>
-        <form action="login.php" method="post" class="form-style">
-            <div class="input-image-container">
-                <img src="/images/user-icon-383838.png" alt="user" height="20px">
-                <input type="text" class="username-input-style" placeholder="Username" id="username" name="username" maxlength="30" required>
+        <form method="post" action="login.php" class="input-container">
+            <div class="input-subcontainer1">
+                <div class="input-label-container">
+                    <label for="username" class="label-style">Username</label>
+                    <input type="text" name="username" id="username" maxlength="30" required autocomplete="off">
+                </div>
+                <div class="input-label-container">
+                    <label for="password" class="label-style">Password</label>
+                    <input type="password" name="password" id="password" maxlength="255" required autocomplete="off">
+                </div>
+
+                <button class="button-style" name="login">Login</button>
             </div>
-            <div class="input-image-container">
-                <img src="/images/password-icon-383838.png" alt="password" height="20px">
-                <input type="password" class="password-input-style" placeholder="Password" id="password" name="password" maxlength="255" required>
-            </div>
-            <button class="login-button-style" id="login" type="submit" name="login">Login</button>
-            <a href="" class="a-forgotPassword-style">Forgot Password?</a>
+            <div class="input-subcontainer2">
+                <a href="" class="a-style">Forgot your password?</a>
+            </div>  
         </form>
-        
     </div>
-    <script src="/js/login-error-message.js"></script>
 </body>
 </html>
-
-<?php
-
-    class Account{
-        public $user;
-        public $password;
-
-        function __construct($user, $password){
-            $this->user = $user;
-            $this->password = $password;
-        }
-    }
-
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])){
-
-        $acc = new Account($_POST["username"], $_POST["password"]);
-        if(empty($_POST["username"]) || empty($_POST["password"])){
-            die("Please input all the fields.");
-        }
-
-        $statement = $conn->prepare("SELECT password FROM Accounts WHERE username = ? AND password = ?");
-        $statement->bind_param("ss", $acc->user, $acc->password);
-        $statement->execute();
-        $result = $statement->get_result();
-
-        if($result->num_rows > 0){
-            header("Location: dashboard.php");
-            exit();
-        }else{
-            include "login-error-message.php";
-        }
-        $statement->close();
-    }
-        
-?>
