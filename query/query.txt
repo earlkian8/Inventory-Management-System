@@ -16,9 +16,9 @@ date_of_birth DATE NOT NULL
 CREATE TABLE suppliers (
 supplier_id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(50) NOT NULL,
-email VARCHAR(50) NOT NULL,
+email VARCHAR(150) NOT NULL,
 contact_person VARCHAR(50) NOT NULL,
-address VARCHAR(50) NOT NULL,
+address VARCHAR(150) NOT NULL,
 payment_terms VARCHAR(30) NOT NULL
 );
 
@@ -33,16 +33,6 @@ name VARCHAR(50) NOT NULL,
 description VARCHAR(150) NOT NULL
 );
 
-CREATE TABLE warehouse (
-warehouse_id INT AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(50) NOT NULL,
-max_stock_level INT NOT NULL,
-address VARCHAR(100) NOT NULL,
-warehouse_manager VARCHAR(50) NOT NULL,
-status ENUM('Active', 'Inactive') NOT NULL
-);
-
-
 CREATE TABLE items (
 item_id INT AUTO_INCREMENT PRIMARY KEY, 
 name VARCHAR(50) NOT NULL,
@@ -56,5 +46,8 @@ supplier_id INT NOT NULL,
 category_id INT NOT NULL,
 
 FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id),
-FOREIGN KEY (category_id) REFERENCES categories(category_id),
+FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
+
+SELECT name, costPrice, quantity, unitPrice, sku, reorderLevel, status, suppliers.name as supplierName, categories.name as categoryName FROM items JOIN suppliers
+ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id;

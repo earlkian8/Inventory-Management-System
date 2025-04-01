@@ -32,5 +32,11 @@
             $stmt = $this->conn->prepare($query);
             $stmt->execute([":name" => $name, ":email" => $email, ":contact_person" => $contact_person, ":address" => $address, ":payment_terms" => $payment_terms, ":id" => $id]);
         }
+
+        public function deleteSupplier($id){
+            $query = "DELETE FROM " . $this->table . " WHERE supplier_id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([":id" => $id]);
+        }
     }
 ?>

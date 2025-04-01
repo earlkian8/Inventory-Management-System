@@ -33,4 +33,161 @@ document.addEventListener("DOMContentLoaded", function(){
         event.preventDefault();
         window.location.href = "report.php";
     });
+
+    const add = document.getElementById("add");
+    const modalContainer = document.getElementById("modal-container");
+    const overlay = document.getElementById("overlay");
+
+    add.addEventListener("click", function(event){
+        event.preventDefault();
+        overlay.classList.add("show");
+        modalContainer.classList.add("show");
+    });
+
+    const discard = document.getElementById("discard");
+    discard.addEventListener("click", function(event){
+        event.preventDefault();
+        modalContainer.classList.remove("show");
+        overlay.classList.remove("show");
+    });
+
+    fetchSuppliers();
 });
+
+let allSuppliers = [];
+function fetchSuppliers(){
+    fetch("api/supplier_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){
+            allSuppliers = data.suppliers;
+            const content = document.getElementById("content");
+            content.innerHTML = "";
+            data.suppliers.forEach(supplier =>{
+                content.innerHTML += `
+                    <tr class="tr-body-style" supplier-id="${supplier.supplier_id}">
+                            <td class="td-style">${supplier.name}</td>
+                            <td class="td-style">${supplier.email}</td>
+                            <td class="td-style">${supplier.contact_person}</td>
+                            <td class="td-style">${supplier.address}</td>
+                            <td class="td-style">${supplier.payment_terms}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        document.querySelectorAll(".tr-body-style").forEach(button =>{
+            button.addEventListener("click", function(){
+                const supId = this.getAttribute("supplier-id");
+                const supplierData = data.suppliers.find(s => s.supplier_id == supId);
+                if(supplierData){
+                    showEditModal(supplierData);
+                } 
+            });
+        });
+    })
+    .catch(error => console.error("Failed Fetching Suppliers", error));
+}
+
+function showEditModal(suppliers){
+    const modifModalContainer = document.getElementById("modif-modal-container");
+    const overlay = document.getElementById("overlay");
+    
+    document.getElementById("modifName").value = suppliers.name;
+    document.getElementById("modifEmail").value = suppliers.email;
+    document.getElementById("modifContactPerson").value = suppliers.contact_person;
+    document.getElementById("modifAddress").value = suppliers.address;
+    document.getElementById("modifPaymentTerms").value = suppliers.payment_terms;
+    
+    modifModalContainer.classList.add("show");
+    overlay.classList.add("show");
+
+    const back = document.getElementById("back");
+    back.addEventListener("click", function(event){
+        event.preventDefault();
+        modifModalContainer.classList.remove("show");
+        overlay.classList.remove("show");
+    });
+
+    const save = document.getElementById("save");
+    const confirmSaveContainer = document.getElementById("confirm-save-container");
+    save.addEventListener("click", function(event){
+        event.preventDefault();
+        document.getElementById("saveSupplierId").value = suppliers.supplier_id;
+        document.getElementById("saveName").value = document.getElementById("modifName").value;
+        document.getElementById("saveEmail").value = document.getElementById("modifEmail").value;
+        document.getElementById("saveContactPerson").value = document.getElementById("modifContactPerson").value;
+        document.getElementById("saveAddress").value = document.getElementById("modifAddress").value;
+        document.getElementById("savePaymentTerms").value = document.getElementById("modifPaymentTerms").value;
+        confirmSaveContainer.classList.add("show");
+        
+    });
+
+    const del = document.getElementById("delete");
+    const confirmDeleteContainer = document.getElementById("confirm-delete-container");
+
+    del.addEventListener("click", function(event){
+        event.preventDefault();
+        document.getElementById("deleteSupplierId").value = suppliers.supplier_id;
+        confirmDeleteContainer.classList.add("show");
+    });
+
+    const cancelButtonDelete = document.getElementById('cancel-button-delete');
+    cancelButtonDelete.addEventListener("click", function(event){
+        event.preventDefault();
+        confirmDeleteContainer.classList.remove("show");
+    });
+
+    const cancelButtonSave = document.getElementById("cancel-button-save");
+    cancelButtonSave.addEventListener("click", function(event){
+        event.preventDefault();
+        confirmSaveContainer.classList.remove("show");
+    });
+}
+
+function searchSuppliers() {
+    const searchInput = document.getElementById("search").value.toLowerCase();
+    const content = document.getElementById("content");
+    
+    if (!searchInput) {
+        // If search is empty, show all suppliers
+        fetchSuppliers();
+        return;
+    }
+    
+    // Filter suppliers based on all fields
+    const filteredSuppliers = allSuppliers.filter(supplier => {
+        return (
+            supplier.name.toLowerCase().includes(searchInput) ||
+            (supplier.email.toLowerCase().includes(searchInput)) ||
+            (supplier.contact_person.toLowerCase().includes(searchInput)) ||
+            (supplier.address.toLowerCase().includes(searchInput)) ||
+            (supplier.payment_terms.toLowerCase().includes(searchInput))
+        );
+    });
+    
+    // Display filtered suppliers
+    content.innerHTML = "";
+    filteredSuppliers.forEach(supplier => {
+        content.innerHTML += `
+            <tr class="tr-body-style" supplier-id="${supplier.supplier_id}">
+                <td class="td-style">${supplier.name}</td>
+                <td class="td-style">${supplier.email}</td>
+                <td class="td-style">${supplier.contact_person}</td>
+                <td class="td-style">${supplier.address}</td>
+                <td class="td-style">${supplier.payment_terms}</td>
+            </tr>
+        `;
+    });
+    
+    // Reattach event listeners to the filtered rows
+    document.querySelectorAll(".tr-body-style").forEach(button => {
+        button.addEventListener("click", function() {
+            const supId = this.getAttribute("supplier-id");
+            const supData = allSuppliers.find(s => s.supplier_id == supId);
+            if(supData) {
+                showEditModal(supData);
+            }
+        });
+    });
+}

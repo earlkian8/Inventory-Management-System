@@ -162,7 +162,7 @@
 
         <div class="box-container">
             <div class="box-subcontainer1">
-                <input type="text" name="search" id="search" placeholder="Search by Name" class="search-style" oninput="searchCategories()"> 
+                <input type="text" name="search" id="search" placeholder="Search by Name" class="search-style" oninput="searchCategories()" autocomplete="off"> 
                 <button class="add-button-style" id="add">Create Category</button>
             </div>
             <div class="box-subcontainer2">

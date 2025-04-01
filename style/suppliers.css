@@ -171,12 +171,8 @@ thead{
     z-index: 1;
 }
 
-#nameTh{
-    width: 30%;
-}
-
-#descriptionTh{
-    width: 70%;
+#nameTh, #emailTh, #contactPersonTh, #addressTh, #paymentTermsTh{
+    width: 20%;
 }
 
 .tr-body-style{
@@ -286,7 +282,7 @@ thead{
     
 }
 
-#name, #description, #modifName, #modifDescription{
+#name, #email, #contactPerson, #address, #paymentTerms, #modifName, #modifEmail, #modifContactPerson, #modifAddress, #modifPaymentTerms{
     width: 100%;
     padding: .75em;
     border-style: solid;
@@ -296,7 +292,7 @@ thead{
 
 }
 
-#name, #description, #modifName, #modifDescription:focus{
+#name, #email, #contactPerson, #address, #paymentTerms, #modifName, #modifEmail, #modifContactPerson, #modifAddress, #modifPaymentTerms:focus{
     outline: none;
     border-color: #c0c0c0;
 }

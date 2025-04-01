@@ -276,7 +276,7 @@
 
         <div class="box-container">
             <div class="box-subcontainer1">
-                <input type="text" name="search" id="search" placeholder="Search by Name, Username, or Type" class="search-style" oninput="searchAccounts()"> 
+                <input type="text" name="search" id="search" placeholder="Search" class="search-style" oninput="searchAccounts()" autocomplete="off"> 
                 <button class="add-button-style" id="add">Create Account</button>
             </div>
             <div class="box-subcontainer2">
