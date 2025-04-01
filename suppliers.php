@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventify</title>
-    <link rel="stylesheet" href="style/dashboard.css">
+    <link rel="stylesheet" href="style/suppliers.css">
 </head>
 <body>
     <div class="header-container">
@@ -28,7 +28,7 @@
             <img src="images/categories-icon-ffffff.png" alt="Categories" class="logo-style">
             <h1 class="h1-style">CATEGORIES</h1>
         </div>
-        <div class="navigation-container" id="suppliers-nav">
+        <div class="navigation-container active" id="suppliers-nav">
             <img src="images/suppliers-icon-ffffff.png" alt="Suppliers" class="logo-style">
             <h1 class="h1-style">SUPPLIERS</h1>
         </div>
@@ -44,7 +44,7 @@
             
         </div>
     </div>
-    <script src="js/dashboard.js"></script>
+    <script src="js/suppliers.js"></script>
     <script src="js/company-name.js"></script>
 </body>
 </html>

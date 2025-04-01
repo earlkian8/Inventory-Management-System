@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventify</title>
-    <link rel="stylesheet" href="style/dashboard.css">
+    <link rel="stylesheet" href="style/report.css">
 </head>
 <body>
     <div class="header-container">
@@ -44,7 +44,7 @@
             
         </div>
     </div>
-    <script src="js/dashboard.js"></script>
+    <script src="js/report.js"></script>
     <script src="js/company-name.js"></script>
 </body>
 </html>

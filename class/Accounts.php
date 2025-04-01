@@ -16,9 +16,9 @@
         }
 
         public function getAccountById($id){
-            $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+            $query = "SELECT * FROM " . $this->table . " WHERE account_id = :account_id";
             $stmt = $this->conn->prepare($query);
-            $stmt->execute([":id" => $id]);
+            $stmt->execute([":account_id" => $id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         
@@ -36,15 +36,15 @@
         }
 
         public function updateAccount($id, $first_name, $middle_name, $last_name, $email, $address, $username, $password, $gender, $account_type, $date_of_birth){
-            $query = "UPDATE " . $this->table . " SET first_name = :first_name, middle_name = :middle_name, last_name = :last_name, email = :email, address = :address, username = :username, password = :password, gender = :gender, account_type = :account_type, date_of_birth = :date_of_birth WHERE id = :id";
+            $query = "UPDATE " . $this->table . " SET first_name = :first_name, middle_name = :middle_name, last_name = :last_name, email = :email, address = :address, username = :username, password = :password, gender = :gender, account_type = :account_type, date_of_birth = :date_of_birth WHERE account_id = :account_id";
             $stmt = $this->conn->prepare($query);
-            $stmt->execute([":first_name" => $first_name, ":middle_name" => $middle_name, ":last_name" => $last_name, ":email" => $email, ":address" => $address, ":username" => $username, ":password" => $password, ":gender" => $gender, ":account_type" => $account_type, "date_of_birth" => $date_of_birth, ":id" => $id]);
+            $stmt->execute([":first_name" => $first_name, ":middle_name" => $middle_name, ":last_name" => $last_name, ":email" => $email, ":address" => $address, ":username" => $username, ":password" => $password, ":gender" => $gender, ":account_type" => $account_type, "date_of_birth" => $date_of_birth, ":account_id" => $id]);
         }
 
         public function deleteAccount($id){
-            $query = "DELETE FROM " . $this->table . " WHERE id = :id";
+            $query = "DELETE FROM " . $this->table . " WHERE account_id = :account_id";
             $stmt = $this->conn->prepare($query);
-            $stmt->execute([":id" => $id]);
+            $stmt->execute([":account_id" => $id]);
         }
 
         public function login($username, $password){
