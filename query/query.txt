@@ -41,7 +41,7 @@ quantity INT NOT NULL,
 unitPrice DOUBLE NOT NULL,
 sku VARCHAR(30) NOT NULL,
 reorderLevel INT NOT NULL,
-status ENUM("Active", "Inactive") NOT NULL,
+status VARCHAR(10) NOT NULL,
 supplier_id INT NOT NULL,
 category_id INT NOT NULL,
 

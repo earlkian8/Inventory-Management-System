@@ -27,6 +27,25 @@
 
         $items->addItem($name, $costPrice, $quantity, $unitPrice, $sku, $reorderLevel, $status, $supplierId, $categoryId);
     }
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["save-button-submit"])){
+        $id = $_POST["saveItemId"];
+        $name = $_POST["saveName"];
+        $costPrice = $_POST["saveCostPrice"];
+        $quantity = $_POST["saveQuantity"];
+        $unitPrice = $_POST["saveUnitPrice"];
+        $sku = $_POST["saveSku"];
+        $reorderLevel = $_POST["saveReorderLevel"];
+        $status = $_POST["saveStatus"];
+        $supplier = $_POST["saveSupplier"];
+        $category = $_POST["saveCategory"];
+        $items->updateItem($id, $name, $costPrice, $quantity, $unitPrice, $sku, $reorderLevel, $status, $supplier, $category);
+    }
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete-button-submit"])){
+        $id = $_POST["deleteItemId"];
+
+        $items->deleteItem($id);
+    }
 ?>
 
 
@@ -154,7 +173,60 @@
                 <img src="images/arrow-icon-383838.png" alt="back" class="back-style" id="back">
             </div>
             <div class="input-container">
-                
+            <div class="input-label-container">
+                    <label for="modifName" class="label-style">Name</label>
+                    <input type="text" name="modifName" id="modifName" maxlength="50" required autocomplete="off">
+                </div>
+                <div class="input-label-container">
+                    <label for="modifQuantity" class="label-style">Quantity</label>
+                    <input type="number" name="modifQuantity" id="modifQuantity" required pattern="^\d+$" autocomplete="off">
+                </div>
+                <div class="input-label-container">
+                    <label for="modifCostPrice" class="label-style">Cost Price</label>
+                    <input type="number" name="modifCostPrice" id="modifCostPrice" pattern="^\d+(\.\d+)?$" required autocomplete="off">
+                </div>
+                <div class="input-label-container">
+                    <label for="modifUnitPrice" class="label-style">Unit Price</label>
+                    <input type="number" name="modifUnitPrice" id="modifUnitPrice" pattern="^\d+(\.\d+)?$" required autocomplete="off">
+                </div>
+                <div class="input-label-container">
+                    <label for="modifSku" class="label-style">SKU</label>
+                    <input type="text" name="modifSku" id="modifSku" maxlength="30" required autocomplete="off">
+                </div>
+                <div class="input-label-container">
+                    <label for="modifReorderLevel" class="label-style">Reorder Level</label>
+                    <input type="number" name="modifReorderLevel" id="modifReorderLevel" pattern="^\d+$" required autocomplete="off">
+                </div>
+                <div class="input-label-container">
+                    <label for="modifSupplier" class="label-style">Supplier</label>
+                    <select name="modifSupplier" id="modifSupplier" class="select-style">
+                        <option value="" class="option-style">Select One</option>
+                        <?php foreach ($allSuppliers as $supplier): ?>
+                            <option value="<?php echo htmlspecialchars($supplier['supplier_id']); ?>" class="option-style">
+                                <?php echo htmlspecialchars($supplier['name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="input-label-container">
+                    <label for="modifCategory" class="label-style">Category</label>
+                    <select name="modifCategory" id="modifCategory" class="select-style">
+                        <option value="" class="option-style">Select One</option>
+                        <?php foreach ($allCategories as $category): ?>
+                            <option value="<?php echo htmlspecialchars($category['category_id']); ?>" class="option-style">
+                                <?php echo htmlspecialchars($category['name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="input-label-container">
+                    <label for="modifStatus" class="label-style">Status</label>
+                    <select name="modifStatus" id="modifStatus" class="select-style">
+                        <option value="" class="option-style">Select One</option>
+                        <option value="Active" class="option-style">Active</option>
+                        <option value="Inactive" class="option-style">Inactive</option>
+                    </select>
+                </div>
             </div>
             <div class="button-container">
                 <button class="save-button-style" id="save">Save</button>
@@ -171,6 +243,7 @@
                     <p class="delete-p-style">This will delete the item permanently. You cannot undo this action.</p>
                 </div>
                 <div class="delete-subcontainer-sub2">
+                    <input type="hidden" name="deleteItemId" id="deleteItemId">
                     <button class="cancel-button-style" id="cancel-button-delete">Cancel</button>
                     <button class="delete-button-style" id="delete-button-submit" name="delete-button-submit">Delete</button>
                 </div>
@@ -186,6 +259,16 @@
                     <p class="save-p-style">You have made changes. Do you want to discard or save them?</p>
                 </div>
                 <div class="save-subcontainer-sub2">
+                    <input type="hidden" name="saveItemId" id="saveItemId">
+                    <input type="hidden" name="saveName" id="saveName">
+                    <input type="hidden" name="saveCostPrice" id="saveCostPrice">
+                    <input type="hidden" name="saveQuantity" id="saveQuantity">
+                    <input type="hidden" name="saveUnitPrice" id="saveUnitPrice">
+                    <input type="hidden" name="saveSku" id="saveSku">
+                    <input type="hidden" name="saveReorderLevel" id="saveReorderLevel">
+                    <input type="hidden" name="saveStatus" id="saveStatus">
+                    <input type="hidden" name="saveSupplier" id="saveSupplier">
+                    <input type="hidden" name="saveCategory" id="saveCategory">
                     <button class="cancel-button-style" id="cancel-button-save">Cancel</button>
                     <button class="confirm-save-button-style" id="save-button-submit" name="save-button-submit" type="submit">Save</button>
                 </div>
@@ -194,7 +277,7 @@
 
         <div class="box-container">
             <div class="box-subcontainer1">
-                <input type="text" name="search" id="search" placeholder="Search" class="search-style" oninput="searchSuppliers()" autocomplete="off"> 
+                <input type="text" name="search" id="search" placeholder="Search" class="search-style" oninput="searchItems()" autocomplete="off"> 
                 <button class="add-button-style" id="add">Create Items</button>
             </div>
             <div class="box-subcontainer2">

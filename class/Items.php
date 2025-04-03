@@ -9,7 +9,7 @@
         }
 
         public function getAllItems(){
-            $query = "SELECT items.name, items.costPrice, items.quantity, items.unitPrice, items.sku, items.reorderLevel, items.status, items.supplier_id, items.category_id, suppliers.name as supplierName, categories.name as categoryName FROM " . $this->table . " JOIN suppliers
+            $query = "SELECT items.item_id, items.name, items.costPrice, items.quantity, items.unitPrice, items.sku, items.reorderLevel, items.status, items.supplier_id, items.category_id, suppliers.name as supplierName, categories.name as categoryName FROM " . $this->table . " JOIN suppliers
             ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();

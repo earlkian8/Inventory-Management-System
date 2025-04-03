@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 function fetchCompany(){
-    fetch("../api/company_api.php")
+    fetch("api/company_api.php")
     .then(response => response.json())
     .then(data => {
         if(data.status === "success"){
