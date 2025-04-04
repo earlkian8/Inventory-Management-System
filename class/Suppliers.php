@@ -38,5 +38,11 @@
             $stmt = $this->conn->prepare($query);
             $stmt->execute([":id" => $id]);
         }
+        public function getSupplierCount(){
+            $query = "SELECT COUNT(*) AS count FROM " . $this->table;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }
 ?>

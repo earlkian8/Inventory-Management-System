@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="side-container">
-        <div class="navigation-container" id="dashboard-nav">
+        <div class="navigation-container active" id="dashboard-nav">
             <img src="images/dashboard-icon-ffffff.png" alt="Dashboard" class="logo-style">
             <h1 class="h1-style">DASHBOARD</h1>
         </div>
@@ -42,6 +42,77 @@
         </div>
         <div class="space">
             
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="box-container">
+            <div class="count-container">
+                <div class="countBox-container">
+                    <div class="img-container">
+                        <img src="images/account-icon-383838.png" alt="User" class="img-count-style">
+                    </div>
+                    <div class="text-container">
+                        <h1 class="h-count-style" id="accountCount">3</h1>
+                        <p class="p-count-style">Accounts</p>
+                    </div>
+                </div>
+                <div class="countBox-container">
+                <div class="img-container">
+                        <img src="images/suppliers-icon-383838.png" alt="User" class="img-count-style">
+                    </div>
+                    <div class="text-container">
+                        <h1 class="h-count-style" id="supplierCount">23</h1>
+                        <p class="p-count-style">Suppliers</p>
+                    </div>
+                </div>
+                <div class="countBox-container">
+                <div class="img-container">
+                        <img src="images/categories-icon-383838.png" alt="User" class="img-count-style">
+                    </div>
+                    <div class="text-container">
+                        <h1 class="h-count-style" id="categoryCount">10</h1>
+                        <p class="p-count-style">Categories</p>
+                    </div>
+                </div>
+                <div class="countBox-container">
+                <div class="img-container">
+                        <img src="images/items-icon-383838.png" alt="User" class="img-count-style">
+                    </div>
+                    <div class="text-container">
+                        <h1 class="h-count-style" id="itemCount">24678</h1>
+                        <p class="p-count-style">Total Stocks</p>
+                    </div>
+                </div>
+                <div class="countBox-container">
+                <div class="img-container">
+                        <img src="images/items-icon-383838.png" alt="User" class="img-count-style">
+                    </div>
+                    <div class="text-container" >
+                        <h1 class="h-count-style" id="itemLowCount">13</h1>
+                        <p class="p-count-style">Low Stocks</p>
+                    </div>
+                </div>
+                <div class="countBox-container">
+                <div class="img-container">
+                        <img src="images/items-icon-383838.png" alt="User" class="img-count-style">
+                    </div>
+                    <div class="text-container">
+                        <h1 class="h-count-style" id="itemOutCount">3</h1>
+                        <p class="p-count-style">Out of Stocks</p>
+                    </div>
+                </div>
+            </div>
+            <div class="stock-container">
+                <div class="table-container">
+
+                </div>
+                <div class="table-container">
+                    
+                </div>
+                <div class="table-container">
+                    
+                </div>
+            </div>
         </div>
     </div>
     <script src="js/dashboard.js"></script>

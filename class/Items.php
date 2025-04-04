@@ -40,5 +40,25 @@
             $stmt = $this->conn->prepare($query);
             $stmt->execute([":id" => $id]);
         }
+        public function getItemCount(){
+            $query = "SELECT COUNT(*) AS count FROM " . $this->table;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        
+        public function getItemCountByLowStock(){
+            $query = "SELECT COUNT(*) AS count FROM " . $this->table . " WHERE quantity < reorderLevel AND quantity != 0";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public function getItemCountByOutStock(){
+            $query = "SELECT COUNT(*) AS count FROM " . $this->table . " WHERE quantity = 0";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }
 ?>

@@ -61,5 +61,12 @@
             return false;
         }
 
+        public function getAccountCount(){
+            $query = "SELECT COUNT(*) AS count FROM " . $this->table;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
     }
 ?>
