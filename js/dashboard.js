@@ -41,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function(){
     fetchItemCount();
     fetchItemLowCount();
     fetchItemOutCount();
+    fetchItemLow();
+    fetchItemOut();
+    fetchRecentlyAdded();
 });
 
 function fetchAccountCount(){
@@ -116,6 +119,73 @@ function fetchItemOutCount(){
             const itemOutCount = document.getElementById('itemOutCount');
             itemOutCount.innerHTML = "";
             itemOutCount.innerHTML = data.itemOutCount.count;
+        }
+    })
+    .catch(error => console.error("Failed Fetching Dashboard", error));
+}
+
+function fetchItemLow(){
+    fetch("api/item_low_stock_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){
+            const lowStockTable = document.getElementById('lowStockTable');
+            lowStockTable.innerHTML = "";
+            
+            data.itemLow.forEach(items =>{
+                lowStockTable.innerHTML += `
+                    <tr class="tr-body-style" data-item-id="${items.item_id}">
+                            <td class="td-style">${items.name}</td>
+                            <td class="td-style">${items.quantity}</td>
+                            <td class="td-style">${items.categoryName}</td>
+                    </tr>
+                `;
+            });
+        }
+    })
+    .catch(error => console.error("Failed Fetching Dashboard", error));
+}
+
+function fetchItemOut(){
+    fetch("api/item_out_stock_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){
+            const outStockTable = document.getElementById('outStockTable');
+            outStockTable.innerHTML = "";
+            
+            data.itemOut.forEach(items =>{
+                outStockTable.innerHTML += `
+                    <tr class="tr-body-style" data-item-id="${items.item_id}">
+                            <td class="td-style">${items.name}</td>
+                            <td class="td-style">${items.quantity}</td>
+                            <td class="td-style">${items.categoryName}</td>
+                    </tr>
+                `;
+            });
+        }
+    })
+    .catch(error => console.error("Failed Fetching Dashboard", error));
+}
+
+
+function fetchRecentlyAdded(){
+    fetch("api/item_recently_added_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){
+            const recentlyAddedTable = document.getElementById('recentlyAddedTable');
+            recentlyAddedTable.innerHTML = "";
+            
+            data.recentlyAdded.forEach(items =>{
+                recentlyAddedTable.innerHTML += `
+                    <tr class="tr-body-style" data-item-id="${items.item_id}">
+                            <td class="td-style">${items.name}</td>
+                            <td class="td-style">${items.quantity}</td>
+                            <td class="td-style">${items.categoryName}</td>
+                    </tr>
+                `;
+            });
         }
     })
     .catch(error => console.error("Failed Fetching Dashboard", error));

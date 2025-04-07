@@ -52,7 +52,7 @@
                         <img src="images/account-icon-383838.png" alt="User" class="img-count-style">
                     </div>
                     <div class="text-container">
-                        <h1 class="h-count-style" id="accountCount">3</h1>
+                        <h1 class="h-count-style" id="accountCount">0</h1>
                         <p class="p-count-style">Accounts</p>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                         <img src="images/suppliers-icon-383838.png" alt="User" class="img-count-style">
                     </div>
                     <div class="text-container">
-                        <h1 class="h-count-style" id="supplierCount">23</h1>
+                        <h1 class="h-count-style" id="supplierCount">0</h1>
                         <p class="p-count-style">Suppliers</p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                         <img src="images/categories-icon-383838.png" alt="User" class="img-count-style">
                     </div>
                     <div class="text-container">
-                        <h1 class="h-count-style" id="categoryCount">10</h1>
+                        <h1 class="h-count-style" id="categoryCount">0</h1>
                         <p class="p-count-style">Categories</p>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <img src="images/items-icon-383838.png" alt="User" class="img-count-style">
                     </div>
                     <div class="text-container">
-                        <h1 class="h-count-style" id="itemCount">24678</h1>
+                        <h1 class="h-count-style" id="itemCount">0</h1>
                         <p class="p-count-style">Total Stocks</p>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                         <img src="images/items-icon-383838.png" alt="User" class="img-count-style">
                     </div>
                     <div class="text-container" >
-                        <h1 class="h-count-style" id="itemLowCount">13</h1>
+                        <h1 class="h-count-style" id="itemLowCount">0</h1>
                         <p class="p-count-style">Low Stocks</p>
                     </div>
                 </div>
@@ -97,20 +97,77 @@
                         <img src="images/items-icon-383838.png" alt="User" class="img-count-style">
                     </div>
                     <div class="text-container">
-                        <h1 class="h-count-style" id="itemOutCount">3</h1>
+                        <h1 class="h-count-style" id="itemOutCount">0</h1>
                         <p class="p-count-style">Out of Stocks</p>
                     </div>
                 </div>
             </div>
             <div class="stock-container">
                 <div class="table-container">
-
+                    <table class="table-style">
+                            
+                            <thead>
+                                <tr class="tr-title-style">
+                                    <th class="th-title-style" colspan="3" style="background-color: #6DDC67;">Recently Added Items</th>
+                                </tr>
+                                <tr class="tr-head-style">
+                                    <th class="th-style">Name</th>
+                                    <th class="th-style">Quantity</th>
+                                    <th class="th-style">Category</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentlyAddedTable">
+                                <tr class="tr-body-style" id="itemLowCountTable">
+                                    <td class="td-style">0</td>
+                                    <td class="td-style">0</td>
+                                    <td class="td-style">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
                 </div>
                 <div class="table-container">
-                    
+                    <table class="table-style">
+                            
+                        <thead>
+                            <tr class="tr-title-style">
+                                <th class="th-title-style" colspan="3" style="background-color: #EDA451;">Low Stock Items</th>
+                            </tr>
+                            <tr class="tr-head-style">
+                                <th class="th-style" id="lowNameTh">Name</th>
+                                <th class="th-style" id="lowQuantityTh">Quantity</th>
+                                <th class="th-style" id="lowCategoryTh">Category</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lowStockTable">
+                                <tr class="tr-body-style" id="itemLowCountTable">
+                                    <td class="td-style">0</td>
+                                    <td class="td-style">0</td>
+                                    <td class="td-style">0</td>
+                                </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="table-container">
-                    
+                    <table class="table-style">
+                            
+                        <thead>
+                            <tr class="tr-title-style">
+                                <th class="th-title-style" colspan="3" style="background-color:rgb(88, 88, 88);">Out of Stock Items</th>
+                            </tr>
+                            <tr class="tr-head-style">
+                                <th class="th-style">Name</th>
+                                <th class="th-style">Quantity</th>
+                                <th class="th-style">Category</th>
+                            </tr>
+                        </thead>
+                        <tbody id="outStockTable">
+                                <tr class="tr-body-style" id="itemLowCountTable">
+                                    <td class="td-style">0</td>
+                                    <td class="td-style">0</td>
+                                    <td class="td-style">0</td>
+                                </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

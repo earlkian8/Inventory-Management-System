@@ -167,3 +167,89 @@ body{
     border-color: #c0c0c0;
     border-width: 1px;
 }
+
+.table-style{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tr-head-style{
+    background-color: #383838;
+    color: #ffffff;
+    font-size: 1em;
+}
+
+.th-style{
+    padding: .25em 1em;
+    text-align: left;
+    width: 33%;
+    
+}
+
+.td-style{
+    padding: .25em 1em;
+    text-align: left;
+    color: #383838;
+    font-size: 1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    border: 1px solid #c0c0c0;
+    border-left: none;
+    border-right: none;
+}
+
+.tr-title-style{
+    background-color: #383838;
+    color: #ffffff;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.th-title-style{
+    text-align: center;
+}
+
+thead{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#lowNameTh{
+    width: 50%;
+}
+
+#lowQuantityTh{
+    width: 10%;
+}
+
+#lowCategoryTh{
+    width: 40%;
+}
+
+.table-container{
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+
+.table-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
+}

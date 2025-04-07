@@ -8,7 +8,7 @@
         }
 
         public function getAllSuppliers(){
-            $query = "SELECT * FROM " . $this->table;
+            $query = "SELECT * FROM " . $this->table . " ORDER BY supplier_id DESC";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

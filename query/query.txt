@@ -13,6 +13,11 @@ date_of_birth DATE NOT NULL
 
 );
 
+CREATE TABLE company (
+company_id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE suppliers (
 supplier_id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(50) NOT NULL,
@@ -22,10 +27,7 @@ address VARCHAR(150) NOT NULL,
 payment_terms VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE company (
-company_id INT AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(50) NOT NULL
-);
+
 
 CREATE TABLE categories (
 category_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,5 +51,193 @@ FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id),
 FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
-SELECT name, costPrice, quantity, unitPrice, sku, reorderLevel, status, suppliers.name as supplierName, categories.name as categoryName FROM items JOIN suppliers
-ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id;
+CREATE TABLE invoice (
+    invoice_id INT PRIMARY KEY AUTO_INCREMENT,
+    invoice_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    subtotal DECIMAL(10,2),
+    tax_amount DECIMAL(10,2),
+    total_amount DECIMAL(10,2),
+    cash_received DECIMAL(10,2),
+    change_amount DECIMAL(10,2)
+);
+
+CREATE TABLE invoice_items (
+    invoice_item_id INT PRIMARY KEY AUTO_INCREMENT,
+    invoice_id INT,
+    item_id INT,
+    quantity INT,
+    unit_price DECIMAL(10,2),
+    discount_percent INT,
+    total_price DECIMAL(10,2),
+    FOREIGN KEY (invoice_id) REFERENCES invoice(invoice_id),
+    FOREIGN KEY (item_id) REFERENCES items(item_id)
+);
+
+INSERT INTO categories (name, description) VALUES
+('Laptops', 'Portable computers including gaming laptops, ultrabooks, and business notebooks'),
+('Smartphones', 'Mobile phones with advanced computing capability and connectivity'),
+('Tablets', 'Touchscreen portable devices larger than smartphones'),
+('Monitors', 'Computer displays including LED, LCD, and gaming monitors'),
+('PC Components', 'Internal computer parts like CPUs, GPUs, motherboards, and RAM'),
+('Printers & Scanners', 'Output devices including inkjet, laser printers, and document scanners'),
+('Networking Devices', 'Routers, switches, modems, and other networking equipment'),
+('Storage Devices', 'SSDs, HDDs, USB flash drives, and memory cards'),
+('Gaming Gear', 'Gaming peripherals like mice, keyboards, headsets, and controllers'),
+('Software & Security', 'Operating systems, productivity software, and antivirus programs'),
+('Accessories', 'Cables, adapters, docks, and other computer accessories'),
+('Smart Home Devices', 'Smart speakers, security cameras, and home automation products');
+
+INSERT INTO suppliers (name, email, contact_person, address, payment_terms) VALUES
+('TechSource Inc.', 'sales@techsource.com', 'John Smith', '123 Tech Plaza, Silicon Valley, CA 94025', 'Net 30'),
+('GadgetWorld Distributors', 'orders@gadgetworld.com', 'Sarah Johnson', '456 Innovation Drive, Austin, TX 78701', 'Net 15'),
+('FutureComputing Solutions', 'info@futurecomputing.com', 'Michael Chen', '789 Binary Boulevard, Seattle, WA 98101', 'Net 45'),
+('SmartDevice Hub', 'support@smartdevicehub.com', 'David Wilson', '321 Circuit Street, Boston, MA 02108', 'Net 30'),
+('Global Tech Suppliers', 'inquiries@globaltech.com', 'Emily Davis', '654 Microchip Lane, San Diego, CA 92101', 'Net 60'),
+('Elite Electronics', 'sales@eliteelectronics.com', 'Robert Brown', '987 Transistor Road, Denver, CO 80202', 'Net 30'),
+('Digital Frontier', 'orders@digitalfrontier.com', 'Jessica Lee', '159 Algorithm Avenue, Chicago, IL 60601', 'Net 15');
+
+INSERT INTO items (name, costPrice, quantity, unitPrice, sku, reorderLevel, status, supplier_id, category_id) VALUES
+-- Laptops (Category 1)
+('Dell XPS 15', 66000.00, 15, 82499.45, 'DEL-XPS15-2023', 5, 'Active', 1, 1),
+('MacBook Pro 14" M2', 82500.00, 10, 109999.45, 'APP-MBP14-M2', 3, 'Active', 2, 1),
+('Lenovo ThinkPad X1', 60500.00, 12, 76999.45, 'LEN-TPX1-2023', 4, 'Active', 3, 1),
+
+-- Smartphones (Category 2)
+('iPhone 15 Pro', 49445.00, 25, 60499.45, 'APP-IP15-PRO', 10, 'Active', 2, 2),
+('Samsung Galaxy S23', 41250.00, 20, 49499.45, 'SAM-GS23-256', 8, 'Active', 4, 2),
+('Google Pixel 7 Pro', 35750.00, 18, 43999.45, 'GOO-PX7-PRO', 5, 'Inactive', 5, 2),
+
+-- Tablets (Category 3)
+('iPad Pro 12.9"', 49500.00, 8, 60499.45, 'APP-IPADP-129', 3, 'Active', 2, 3),
+('Samsung Galaxy Tab S9', 33000.00, 12, 41249.45, 'SAM-TABS9-256', 4, 'Inactive', 4, 3),
+
+-- Monitors (Category 4)
+('LG UltraFine 32" 4K', 22000.00, 10, 32999.45, 'LG-32UF-4K', 5, 'Active', 3, 4),
+('Dell 27" Gaming Monitor', 19250.00, 15, 27499.45, 'DEL-27GM-240HZ', 5, 'Active', 1, 4),
+
+-- PC Components (Category 5)
+('NVIDIA RTX 4090', 66000.00, 5, 87999.45, 'NVD-RTX4090', 2, 'Active', 6, 5),
+('Intel Core i9-13900K', 24750.00, 8, 32999.45, 'INT-I9-13GEN', 3, 'Inactive', 7, 5),
+
+-- Printers & Scanners (Category 6)
+('HP LaserJet Pro M404', 13750.00, 7, 19249.45, 'HP-LJP-M404', 3, 'Active', 1, 6),
+('Epson EcoTank ET-3850', 16500.00, 5, 21999.45, 'EPS-ET3850', 2, 'Active', 5, 6),
+
+-- Networking Devices (Category 7)
+('TP-Link Archer AX6000', 9900.00, 12, 13749.45, 'TPL-AX6000', 5, 'Active', 4, 7),
+('Netgear Nighthawk X10', 22000.00, 4, 30249.45, 'NET-NH-X10', 2, 'Inactive', 3, 7),
+
+-- Storage Devices (Category 8)
+('Samsung 980 Pro 2TB', 8250.00, 20, 10999.45, 'SAM-980P-2TB', 10, 'Active', 4, 8),
+('WD Black 5TB HDD', 6600.00, 15, 8799.45, 'WD-BLK-5TB', 8, 'Active', 6, 8),
+
+-- Gaming Gear (Category 9)
+('Logitech G Pro X', 4400.00, 25, 7149.45, 'LOG-GPROX', 10, 'Active', 7, 9),
+('Razer BlackWidow V4', 6600.00, 10, 9349.45, 'RZR-BWV4', 5, 'Inactive', 5, 9),
+
+-- Software & Security (Category 10)
+('Microsoft Office 365', 6600.00, 50, 8249.45, 'MS-OFF365-1YR', 20, 'Active', 1, 10),
+('Norton 360 Deluxe', 2200.00, 30, 3299.45, 'NOR-360-DLX', 15, 'Active', 2, 10);
+
+INSERT INTO items (name, costPrice, quantity, unitPrice, sku, reorderLevel, status, supplier_id, category_id) VALUES
+-- Laptops (Category 1)
+('Dell XPS 15 (2023)', 65999.00, 12, 82499.00, 'DEL-XPS15-23', 5, 'Active', 1, 1),
+('MacBook Air M2', 54999.00, 8, 68999.00, 'APP-MBA-M2', 3, 'Active', 2, 1),
+('ASUS ROG Zephyrus', 72999.00, 5, 89999.00, 'ASU-ROG-ZEP', 2, 'Active', 3, 1),
+('Lenovo ThinkPad T14', 48999.00, 10, 61999.00, 'LEN-TPT14', 4, 'Inactive', 4, 1),
+('Acer Swift 3', 32999.00, 15, 41999.00, 'ACE-SW3', 7, 'Active', 5, 1),
+
+-- Smartphones (Category 2)
+('iPhone 15 Pro 256GB', 65999.00, 20, 79999.00, 'APP-IP15P', 8, 'Active', 2, 2),
+('Samsung Galaxy S23 Ultra', 58999.00, 18, 72999.00, 'SAM-S23U', 7, 'Active', 4, 2),
+('Xiaomi 13T Pro', 32999.00, 25, 41999.00, 'XIA-13TP', 10, 'Active', 6, 2),
+('Google Pixel 8', 38999.00, 12, 48999.00, 'GOO-PX8', 5, 'Inactive', 7, 2),
+('Realme 11 Pro+', 21999.00, 30, 27999.00, 'REL-11PP', 12, 'Active', 5, 2),
+
+-- Tablets (Category 3)
+('iPad Air 5th Gen', 34999.00, 10, 43999.00, 'APP-IPA5', 4, 'Active', 2, 3),
+('Samsung Tab S9 Ultra', 45999.00, 6, 57999.00, 'SAM-TS9U', 2, 'Active', 4, 3),
+('Huawei MatePad Pro', 28999.00, 8, 36999.00, 'HUA-MPP', 3, 'Inactive', 1, 3),
+('Lenovo Tab P12', 22999.00, 12, 29999.00, 'LEN-TP12', 5, 'Active', 3, 3),
+('Xiaomi Pad 6', 19999.00, 15, 25999.00, 'XIA-PAD6', 7, 'Active', 6, 3),
+
+-- Monitors (Category 4)
+('LG UltraFine 32UN880', 32999.00, 7, 41999.00, 'LG-32UN880', 3, 'Active', 3, 4),
+('Dell 27 4K U2723QE', 28999.00, 9, 36999.00, 'DEL-U2723', 4, 'Active', 1, 4),
+('Samsung Odyssey G7', 25999.00, 5, 32999.00, 'SAM-ODG7', 2, 'Inactive', 4, 4),
+('ASUS ProArt PA278QV', 21999.00, 8, 28999.00, 'ASU-PA278', 3, 'Active', 7, 4),
+('Acer Predator XB3', 38999.00, 4, 48999.00, 'ACE-PXB3', 2, 'Active', 5, 4),
+
+-- PC Components (Category 5)
+('NVIDIA RTX 4090', 89999.00, 3, 109999.00, 'NVD-RTX4090', 1, 'Active', 6, 5),
+('AMD Ryzen 9 7950X', 32999.00, 7, 41999.00, 'AMD-R97950', 3, 'Active', 7, 5),
+('Corsair DDR5 32GB', 7999.00, 20, 10999.00, 'COR-D5-32G', 8, 'Active', 1, 5),
+('Samsung 990 Pro 2TB', 12999.00, 15, 16999.00, 'SAM-990P2T', 6, 'Inactive', 4, 5),
+('ASUS ROG Strix B650E', 14999.00, 10, 19999.00, 'ASU-B650E', 4, 'Active', 3, 5),
+
+-- Printers & Scanners (Category 6)
+('HP LaserJet Pro M404dn', 18999.00, 6, 23999.00, 'HP-LJM404', 3, 'Active', 1, 6),
+('Epson L3210 EcoTank', 12999.00, 8, 16999.00, 'EPS-L3210', 4, 'Active', 5, 6),
+('Canon imageCLASS MF654', 21999.00, 5, 27999.00, 'CAN-MF654', 2, 'Inactive', 2, 6),
+('Brother HL-L2350DW', 9999.00, 12, 13999.00, 'BR-HLL2350', 5, 'Active', 7, 6),
+('Xerox VersaLink C405', 28999.00, 4, 36999.00, 'XER-VLC405', 2, 'Active', 3, 6),
+
+-- Networking (Category 7)
+('TP-Link Archer AX73', 8999.00, 15, 11999.00, 'TPL-AX73', 7, 'Active', 4, 7),
+('ASUS RT-AX86U', 12999.00, 8, 16999.00, 'ASU-RTAX86', 4, 'Active', 3, 7),
+('Netgear Nighthawk RAX50', 14999.00, 6, 18999.00, 'NET-RAX50', 3, 'Inactive', 6, 7),
+('Ubiquiti UniFi U6-Pro', 15999.00, 5, 19999.00, 'UBI-U6PRO', 2, 'Active', 1, 7),
+('MikroTik hAP ac³', 7999.00, 10, 10999.00, 'MIK-HAPAC3', 5, 'Active', 5, 7);
+
+INSERT INTO items (name, costPrice, quantity, unitPrice, sku, reorderLevel, status, supplier_id, category_id) VALUES
+-- Continuing from previous items... (Categories 1-7)
+-- [Previous 25 items here...]
+
+-- Storage Devices (Category 8)
+('Samsung T7 Shield 2TB', 8999.00, 18, 11999.00, 'SAM-T7-2TB', 8, 'Active', 4, 8),
+('WD My Passport 5TB', 6999.00, 15, 8999.00, 'WD-MP5TB', 7, 'Active', 6, 8),
+('SanDisk Extreme Pro 1TB', 4999.00, 20, 6999.00, 'SD-EX1TB', 10, 'Active', 1, 8),
+('Seagate Expansion 8TB', 9999.00, 8, 12999.00, 'SEA-EXP8T', 4, 'Inactive', 3, 8),
+('Kingston XS2000 1TB', 5999.00, 12, 7999.00, 'KIN-XS2-1T', 6, 'Active', 5, 8),
+
+-- Gaming Gear (Category 9)
+('Logitech G Pro X Headset', 7999.00, 10, 10999.00, 'LOG-GPX-HD', 5, 'Active', 7, 9),
+('Razer BlackWidow V4 Pro', 9999.00, 8, 12999.00, 'RAZ-BWV4P', 4, 'Active', 2, 9),
+('SteelSeries Aerox 5', 5999.00, 12, 7999.00, 'STL-AX5', 6, 'Active', 4, 9),
+('Xbox Elite Series 2', 8999.00, 6, 11999.00, 'MS-XB-EL2', 3, 'Inactive', 1, 9),
+('PlayStation DualSense Edge', 9999.00, 5, 12999.00, 'SONY-PS-DSE', 2, 'Active', 3, 9),
+
+-- Software & Security (Category 10)
+('Microsoft Office 2021 Home', 8999.00, 25, 11999.00, 'MS-OFF21-H', 10, 'Active', 1, 10),
+('Adobe Creative Cloud 1YR', 19999.00, 15, 24999.00, 'ADB-CC-1Y', 7, 'Active', 2, 10),
+('Norton 360 Deluxe', 2999.00, 30, 4999.00, 'NOR-360-D', 15, 'Active', 5, 10),
+('Windows 11 Pro OEM', 5999.00, 20, 7999.00, 'MS-WIN11P', 8, 'Inactive', 1, 10),
+('Kaspersky Total Security', 2499.00, 18, 3999.00, 'KAS-TS-1Y', 9, 'Active', 7, 10),
+
+-- Additional items to reach 30+
+('Crucial MX500 2TB SSD', 7999.00, 10, 10999.00, 'CRU-MX5-2T', 5, 'Active', 6, 8),
+('HyperX Cloud Alpha Wireless', 8999.00, 7, 11999.00, 'HX-CAW', 3, 'Active', 4, 9),
+('McAfee Total Protection', 1999.00, 25, 3499.00, 'MCA-TP-1Y', 12, 'Active', 3, 10),
+('ASUS TUF Gaming F15 (2023)', 54999.00, 9, 68999.00, 'ASU-TUF15-23', 4, 'Active', 3, 1),
+('ASUS TUF F15 i7-12700H', 51999.00, 6, 64999.00, 'ASU-TF15-127H', 3, 'Active', 3, 1),
+('ASUS TUF F15 RTX 4060', 61999.00, 5, 75999.00, 'ASU-TF15-4060', 2, 'Active', 3, 1);
+
+INSERT INTO items (name, costPrice, quantity, unitPrice, sku, reorderLevel, status, supplier_id, category_id) VALUES
+-- Flagship Models
+('Samsung Galaxy S24 Ultra 512GB', 75999.00, 7, 89999.00, 'SAM-S24U-512', 3, 'Active', 4, 2),
+('iPhone 16 Pro Max 1TB', 89999.00, 5, 109999.00, 'APP-IP16PM-1T', 2, 'Active', 2, 2),
+('Google Pixel 9 Pro 256GB', 48999.00, 9, 61999.00, 'GOO-PX9P-256', 4, 'Active', 7, 2),
+
+-- Mid-Range Phones
+('Xiaomi 14T Pro 12/256GB', 32999.00, 15, 41999.00, 'XIA-14TP-256', 7, 'Active', 6, 2),
+('realme GT 6 12/512GB', 27999.00, 12, 35999.00, 'REL-GT6-512', 6, 'Active', 5, 2),
+('vivo V30 Pro 12/256GB', 29999.00, 10, 38999.00, 'VIV-V30P-256', 5, 'Inactive', 1, 2),
+
+-- Budget Phones
+('Tecno Camon 30 Pro', 15999.00, 20, 20999.00, 'TEC-CM30P', 10, 'Active', 3, 2),
+('Infinix Note 40 Pro+', 13999.00, 18, 18999.00, 'INF-N40PP', 9, 'Active', 4, 2),
+
+-- Older Models (Inactive)
+('iPhone 14 Plus 128GB', 35999.00, 4, 45999.00, 'APP-IP14P-128', 2, 'Inactive', 2, 2),
+('Samsung Galaxy S21 FE', 22999.00, 3, 29999.00, 'SAM-S21FE', 1, 'Inactive', 4, 2);
+

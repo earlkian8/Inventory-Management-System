@@ -9,7 +9,7 @@
         }
 
         public function getAllAccounts(){
-            $query = "SELECT * FROM " . $this->table;
+            $query = "SELECT * FROM " . $this->table . " ORDER BY account_id DESC";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -67,6 +67,7 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+        
 
     }
 ?>

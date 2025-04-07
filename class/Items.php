@@ -10,7 +10,7 @@
 
         public function getAllItems(){
             $query = "SELECT items.item_id, items.name, items.costPrice, items.quantity, items.unitPrice, items.sku, items.reorderLevel, items.status, items.supplier_id, items.category_id, suppliers.name as supplierName, categories.name as categoryName FROM " . $this->table . " JOIN suppliers
-            ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id";
+            ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id ORDER BY item_id DESC";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -59,6 +59,37 @@
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public function getItemsLowStock(){
+            $query = "SELECT items.item_id, items.name, items.costPrice, items.quantity, items.unitPrice, items.sku, items.reorderLevel, items.status, items.supplier_id, items.category_id, suppliers.name as supplierName, categories.name as categoryName FROM " . $this->table . " JOIN suppliers
+            ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id WHERE items.quantity < items.reorderLevel AND items.quantity != 0";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getItemsOutStock(){
+            $query = "SELECT items.item_id, items.name, items.costPrice, items.quantity, items.unitPrice, items.sku, items.reorderLevel, items.status, items.supplier_id, items.category_id, suppliers.name as supplierName, categories.name as categoryName FROM " . $this->table . " JOIN suppliers
+            ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id WHERE items.quantity = 0";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getRecentlyAdded(){
+            $query = "SELECT items.item_id, items.name, items.costPrice, items.quantity, items.unitPrice, items.sku, items.reorderLevel, items.status, items.supplier_id, items.category_id, suppliers.name as supplierName, categories.name as categoryName FROM " . $this->table . " JOIN suppliers
+            ON items.supplier_id = suppliers.supplier_id JOIN categories ON items.category_id = categories.category_id ORDER BY item_id DESC LIMIT 9";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getItemByActive(){
+            $query = "SELECT * FROM " . $this->table . " WHERE status = 'Active' AND quantity != 0 ORDER BY item_id DESC";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 ?>
