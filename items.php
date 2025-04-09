@@ -200,7 +200,7 @@
                 <div class="input-label-container">
                     <label for="modifSupplier" class="label-style">Supplier</label>
                     <select name="modifSupplier" id="modifSupplier" class="select-style">
-                        <option value="" class="option-style">Select One</option>
+                        <option value="" disabled selected>Select One</option>
                         <?php foreach ($allSuppliers as $supplier): ?>
                             <option value="<?php echo htmlspecialchars($supplier['supplier_id']); ?>" class="option-style">
                                 <?php echo htmlspecialchars($supplier['name']); ?>
@@ -211,7 +211,7 @@
                 <div class="input-label-container">
                     <label for="modifCategory" class="label-style">Category</label>
                     <select name="modifCategory" id="modifCategory" class="select-style">
-                        <option value="" class="option-style">Select One</option>
+                        <option value="" disabled selected>Select One</option>
                         <?php foreach ($allCategories as $category): ?>
                             <option value="<?php echo htmlspecialchars($category['category_id']); ?>" class="option-style">
                                 <?php echo htmlspecialchars($category['name']); ?>
@@ -222,7 +222,7 @@
                 <div class="input-label-container">
                     <label for="modifStatus" class="label-style">Status</label>
                     <select name="modifStatus" id="modifStatus" class="select-style">
-                        <option value="" class="option-style">Select One</option>
+                        <option value="" disabled selected>Select One</option>
                         <option value="Active" class="option-style">Active</option>
                         <option value="Inactive" class="option-style">Inactive</option>
                     </select>

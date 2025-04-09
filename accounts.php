@@ -209,6 +209,7 @@
                     <div class="input-label-container2">
                         <label for="modifGender" class="label-style">Gender</label>
                         <select name="modifGender" id="modifGender" class="select-style">
+                            <option value="" disabled selected>Select One</option>
                             <option value="Male" class="option-style">Male</option>
                             <option value="Female" class="option-style">Female</option>
                         </select>
@@ -216,6 +217,7 @@
                     <div class="input-label-container2">
                         <label for="modifAccountType" class="label-style">Account Type</label>
                         <select name="modifAccountType" id="modifAccountType" class="select-style">
+                            <option value="" disabled selected>Select One</option>
                             <option value="Admin" class="option-style">Admin</option>
                             <option value="User" class="option-style">User</option>
                         </select>

@@ -163,7 +163,7 @@
                     <p class="delete-p-style">This will delete the supplier permanently. You cannot undo this action.</p>
                 </div>
                 <div class="delete-subcontainer-sub2">
-                    <input type="text" name="deleteSupplierId" id="deleteSupplierId">
+                    <input type="hidden" name="deleteSupplierId" id="deleteSupplierId">
                     <button class="cancel-button-style" id="cancel-button-delete">Cancel</button>
                     <button class="delete-button-style" id="delete-button-submit" name="delete-button-submit">Delete</button>
                 </div>

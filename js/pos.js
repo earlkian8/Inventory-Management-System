@@ -2,7 +2,15 @@ document.addEventListener("DOMContentLoaded", function(){
     const checkout = document.getElementById("checkout");
     const checkoutContainer = document.getElementById("checkout-container");
     const overlay = document.getElementById("overlay");
+    const installment = document.getElementById("installment");
+    const installmentContainer = document.getElementById("installment-container");
 
+    installment.addEventListener("click", function(event){
+        event.preventDefault();
+        collectCartItems();
+        overlay.classList.add("show");
+        installmentContainer.classList.add("show");
+    });
     checkout.addEventListener("click", function(event){
         event.preventDefault();
 
@@ -18,11 +26,31 @@ document.addEventListener("DOMContentLoaded", function(){
             event.preventDefault();
             overlay.classList.remove("show");
             checkoutContainer.classList.remove("show");
+            installmentContainer.classList.remove("show");
         }
     });
     
     fetchItemActive();
     calculateChange();
+    document.getElementById('downpayment').addEventListener('input', calculateMonthlyPayment);
+    document.getElementById('months').addEventListener('change', calculateMonthlyPayment);
+    document.getElementById('interest').addEventListener('input', calculateMonthlyPayment);
+
+    document.getElementById('interest').addEventListener('change', function() {
+        const value = parseFloat(this.value) || 0;
+        
+        if (value < 0) {
+            this.value = 0;
+            this.setCustomValidity("Interest cannot be less than 0%");
+        } else if (value > 12) {
+            this.value = 12;
+            this.setCustomValidity("Interest cannot be more than 12%");
+        } else {
+            this.setCustomValidity("");
+        }
+        
+        calculateMonthlyPayment();
+    });
 });
 
 function collectCartItems() {
@@ -53,7 +81,15 @@ function collectCartItems() {
         }
     });
 
-    document.getElementById('cartItems').value = JSON.stringify(cartItems);
+    const cartItemsInput = document.getElementById('cartItems');
+    const installmentCartItemsInput = document.getElementById('installmentCartItems');
+    
+    if (cartItemsInput) {
+        cartItemsInput.value = JSON.stringify(cartItems);
+    }
+    if (installmentCartItemsInput) {
+        installmentCartItemsInput.value = JSON.stringify(cartItems);
+    }
 }
 
 let allItems = [];
@@ -196,6 +232,18 @@ function calculateGrandTotal() {
     document.getElementById("paySubTotal").value = parseFloat(document.getElementById("subTotal").textContent);
     document.getElementById("payTaxAmount").value = parseFloat(document.getElementById("tax").textContent);
     document.getElementById("payTotalAmount").value = parseFloat(document.getElementById("total").textContent);
+
+    document.getElementById("installmentSubTotal").value = parseFloat(document.getElementById("subTotal").textContent);
+    document.getElementById("installmentTaxAmount").value = parseFloat(document.getElementById("tax").textContent);
+    document.getElementById("installmentTotalAmount").value = parseFloat(document.getElementById("total").textContent);
+
+    document.getElementById("checkoutSubtotal").textContent = parseFloat(document.getElementById("subTotal").textContent);
+    document.getElementById("checkoutTax").textContent = parseFloat(document.getElementById("tax").textContent);
+    document.getElementById("checkoutTotal").textContent = parseFloat(document.getElementById("total").textContent);
+
+    document.getElementById("installmentSubtotalDisplay").textContent = parseFloat(document.getElementById("subTotal").textContent);
+    document.getElementById("installmentTaxDisplay").textContent = parseFloat(document.getElementById("tax").textContent);
+    document.getElementById("installmentTotalDisplay").textContent = parseFloat(document.getElementById("total").textContent);
 }
 
 function searchProduct() {
@@ -275,5 +323,37 @@ function calculateChange() {
                 this.setCustomValidity("");
             }
         });
+    }
+}
+
+function calculateMonthlyPayment() {
+    const totalAmount = parseFloat(document.getElementById("payTotalAmount").value) || 0;
+    const downpayment = parseFloat(document.getElementById('downpayment').value) || 0;
+    const months = parseInt(document.getElementById('months').value) || 0;
+    const interestRate = parseFloat(document.getElementById('interest').value) || 0;
+
+    if (downpayment > totalAmount) {
+        document.getElementById('downpayment').setCustomValidity("Downpayment cannot exceed total amount");
+        document.getElementById('monthlyAmount').value = '';
+        return;
+    } else {
+        document.getElementById('downpayment').setCustomValidity("");
+    }
+
+    const remainingAmount = totalAmount - downpayment;
+    
+    if (months > 0 && remainingAmount > 0) {
+        const monthlyInterestRate = interestRate / 100 / 12;
+        const numerator = remainingAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, months);
+        const denominator = Math.pow(1 + monthlyInterestRate, months) - 1;
+        const monthlyPayment = numerator / denominator;
+        
+        document.getElementById('monthlyAmount').value = monthlyPayment.toFixed(2);
+
+        document.getElementById('payDownpayment').value = downpayment;
+        document.getElementById('payMonthlyPayment').value = months;
+        document.getElementById('payMonthlyAmount').value = monthlyPayment.toFixed(2);
+    } else {
+        document.getElementById('monthlyAmount').value = '';
     }
 }
