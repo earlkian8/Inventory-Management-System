@@ -64,41 +64,61 @@ CREATE TABLE invoice (
 
 
 CREATE TABLE invoice_items (
-    invoice_item_id INT PRIMARY KEY AUTO_INCREMENT,
-    invoice_id INT,
-    item_id INT,
-    quantity INT,
+    invoice_item_id INT(11) NOT NULL AUTO_INCREMENT,
+    invoice_id INT(11),
+    item_id INT(11),
+    quantity INT(11),
     unit_price DOUBLE NOT NULL,
-    discount_percent INT,
+    discount_percent INT(11),
     total_price DOUBLE NOT NULL,
-    FOREIGN KEY (invoice_id) REFERENCES invoice(invoice_id),
-    FOREIGN KEY (item_id) REFERENCES items(item_id)
+    item_name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (invoice_item_id),
+    KEY (invoice_id),
+    KEY (item_id)
 );
 
 CREATE TABLE installment (
-    installment_id INT AUTO_INCREMENT PRIMARY KEY,
-    installment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    installment_id INT(11) NOT NULL AUTO_INCREMENT,
+    installment_date DATETIME DEFAULT current_timestamp(),
     subtotal DOUBLE NOT NULL,
     tax_amount DOUBLE NOT NULL,
     total_amount DOUBLE NOT NULL,
     downpayment DOUBLE NOT NULL,
     monthly_payment VARCHAR(30) NOT NULL,
     interest DOUBLE NOT NULL,
-    monthly_amount DOUBLE NOT NULL
-
+    monthly_amount DOUBLE NOT NULL,
+    PRIMARY KEY (installment_id)
 );
 
 CREATE TABLE installment_items (
-    installment_item_id INT PRIMARY KEY AUTO_INCREMENT,
-    installment_id INT,
-    item_id INT,
-    quantity INT,
+    installment_item_id INT(11) NOT NULL AUTO_INCREMENT,
+    installment_id INT(11),
+    item_id INT(11),
+    quantity INT(11),
     unit_price DOUBLE NOT NULL,
-    discount_percent INT,
+    discount_percent INT(11),
     total_price DOUBLE NOT NULL,
-    FOREIGN KEY (installment_id) REFERENCES installment(installment_id),
-    FOREIGN KEY (item_id) REFERENCES items(item_id)
+    item_name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (installment_item_id),
+    KEY (installment_id),
+    KEY (item_id)
 );
+
+ALTER TABLE invoice_items 
+DROP FOREIGN KEY invoice_items_ibfk_2;
+
+ALTER TABLE invoice_items 
+ADD CONSTRAINT invoice_items_ibfk_2 
+FOREIGN KEY (item_id) REFERENCES items(item_id) 
+ON DELETE CASCADE;
+
+ALTER TABLE installment_items 
+DROP FOREIGN KEY installment_items_ibfk_2;
+
+ALTER TABLE installment_items 
+ADD CONSTRAINT installment_items_ibfk_2 
+FOREIGN KEY (item_id) REFERENCES items(item_id) 
+ON DELETE CASCADE;
 
 INSERT INTO categories (name, description) VALUES
 ('Laptops', 'Portable computers including gaming laptops, ultrabooks, and business notebooks'),

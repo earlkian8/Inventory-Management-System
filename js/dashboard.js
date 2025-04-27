@@ -41,9 +41,20 @@ document.addEventListener("DOMContentLoaded", function(){
     fetchItemCount();
     fetchItemLowCount();
     fetchItemOutCount();
-    fetchItemLow();
     fetchItemOut();
+    fetchItemLow();
     fetchRecentlyAdded();
+
+    document.getElementById("notificationIcon").addEventListener("click", function(event){
+        event.preventDefault();
+        document.getElementById("notificationContainer").classList.add("show");
+    });
+     document.addEventListener('click', function(e) {
+        if (!notificationContainer.contains(e.target) && 
+            !notificationIcon.contains(e.target)) {
+                document.getElementById("notificationContainer").classList.remove("show");
+        }
+    });
 });
 
 function fetchAccountCount(){
@@ -124,28 +135,6 @@ function fetchItemOutCount(){
     .catch(error => console.error("Failed Fetching Dashboard", error));
 }
 
-function fetchItemLow(){
-    fetch("api/item_low_stock_api.php")
-    .then(response => response.json())
-    .then(data =>{
-        if(data.status === "success"){
-            const lowStockTable = document.getElementById('lowStockTable');
-            lowStockTable.innerHTML = "";
-            
-            data.itemLow.forEach(items =>{
-                lowStockTable.innerHTML += `
-                    <tr class="tr-body-style" data-item-id="${items.item_id}">
-                            <td class="td-style">${items.name}</td>
-                            <td class="td-style">${items.quantity}</td>
-                            <td class="td-style">${items.categoryName}</td>
-                    </tr>
-                `;
-            });
-        }
-    })
-    .catch(error => console.error("Failed Fetching Dashboard", error));
-}
-
 function fetchItemOut(){
     fetch("api/item_out_stock_api.php")
     .then(response => response.json())
@@ -162,11 +151,50 @@ function fetchItemOut(){
                             <td class="td-style">${items.categoryName}</td>
                     </tr>
                 `;
+
+                const timestamp = new Date();
+                document.getElementById("notificationContent").innerHTML += `
+                    <div class="notification-item">
+                        <span class="notification-text">Out of stock alert: ${items.name}</span>
+                    </div>
+                `;
+
             });
         }
     })
     .catch(error => console.error("Failed Fetching Dashboard", error));
 }
+
+function fetchItemLow(){
+    fetch("api/item_low_stock_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){
+            const lowStockTable = document.getElementById('lowStockTable');
+            lowStockTable.innerHTML = "";
+            
+            data.itemLow.forEach(items =>{
+                lowStockTable.innerHTML += `
+                    <tr class="tr-body-style" data-item-id="${items.item_id}">
+                            <td class="td-style">${items.name}</td>
+                            <td class="td-style">${items.quantity}</td>
+                            <td class="td-style">${items.categoryName}</td>
+                    </tr>
+                `;
+
+                const timestamp = new Date();
+                document.getElementById("notificationContent").innerHTML += `
+                    <div class="notification-item">
+                        <span class="notification-text">Low stock alert: ${items.name}</span>
+                    </div>
+                `;
+            });
+
+        }
+    })
+    .catch(error => console.error("Failed Fetching Dashboard", error));
+}
+
 
 
 function fetchRecentlyAdded(){
@@ -185,8 +213,19 @@ function fetchRecentlyAdded(){
                             <td class="td-style">${items.categoryName}</td>
                     </tr>
                 `;
+
+                if (recentlyAddedTable.children.length <= 5) {
+                    const timestamp = new Date();
+                    document.getElementById("notificationContent").innerHTML += `
+                        <div class="notification-item">
+                            <span class="notification-text">Recently Added: ${items.name}</span>
+                        </div>
+                    `;
+                }
             });
         }
     })
     .catch(error => console.error("Failed Fetching Dashboard", error));
 }
+
+

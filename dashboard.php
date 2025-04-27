@@ -11,7 +11,14 @@
         <h1 class="company-name" id="company-name"></h1>
         <img src="images/inventify-logo-ffffff.png" alt="logo" class="icon-style">
         <div class="icon-container">
-            <img src="images/notification-icon-ffffff.png" alt="Notification" class="icon-style-con">
+            <img src="images/notification-icon-ffffff.png" alt="Notification" class="icon-style-con" id="notificationIcon">
+            <div class="notification-container" id="notificationContainer">
+                <div class="notification-header">
+                    <h3>Notifications</h3>
+                </div>
+                <div class="notification-content" id="notificationContent">
+                </div>
+            </div>
             <img src="images/logout-icon-ffffff.png" alt="Logout" class="icon-style-con">
         </div>
     </div>

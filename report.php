@@ -3,15 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventify</title>
+    <title>Inventify - Report</title>
     <link rel="stylesheet" href="style/report.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
+    
     <div class="header-container">
         <h1 class="company-name" id="company-name"></h1>
         <img src="images/inventify-logo-ffffff.png" alt="logo" class="icon-style">
         <div class="icon-container">
-            <img src="images/notification-icon-ffffff.png" alt="Notification" class="icon-style-con">
+            <img src="images/notification-icon-ffffff.png" alt="Notification" class="icon-style-con" id="notificationIcon">
+            <div class="notification-container" id="notificationContainer">
+                <div class="notification-header">
+                    <h3>Notifications</h3>
+                </div>
+                <div class="notification-content" id="notificationContent">
+                </div>
+            </div>
             <img src="images/logout-icon-ffffff.png" alt="Logout" class="icon-style-con">
         </div>
     </div>
@@ -36,7 +45,7 @@
             <img src="images/items-icon-ffffff.png" alt="Items" class="logo-style">
             <h1 class="h1-style">ITEMS</h1>
         </div>
-        <div class="navigation-container" id="report-nav">
+        <div class="navigation-container active" id="report-nav">
             <img src="images/report-icon-ffffff.png" alt="Report" class="logo-style">
             <h1 class="h1-style">REPORT</h1>
         </div>
@@ -44,218 +53,142 @@
             
         </div>
     </div>
-
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Report</title>
-    <link rel="stylesheet" href="reportcss.css">
-</head>
-<body>
-    <div class="top-bar">
-        <div class="top-bar-left">
-            <span class="hamburger-icon">☰</span>
-            <span class="top-bar-title">Report</span>
-        </div>
-        <div class="top-bar-center">
-            <img src="logo.png" alt="Logo" class="top-bar-logo">
-        </div>
-        <div class="top-bar-right">
-            <button class="notification-icon">🔔</button>
-            <button class="logout-icon">🚪</button>
+    <div class="content-container">
+        <div class="report-container">
+            <div class="date-filter-container">
+                <button class="date-nav-btn" id="prevDate"><</button>
+                <div class="date-display" id="dateDisplay">11/12/2024</div>
+                <button class="date-nav-btn" id="nextDate">></button>
+                <button class="download-btn" id="downloadReport">
+                <i class="fa-solid fa-download"></i>
+                </button>
+                <div class="filter-options">
+                    <button class="filter-btn" id="todayBtn">Today</button>
+                    <button class="filter-btn" id="yesterdayBtn">Yesterday</button>
+                    <button class="filter-btn" id="thisWeekBtn">This Week</button>
+                    <button class="filter-btn" id="lastWeekBtn">Last Week</button>
+                    <button class="filter-btn" id="thisMonthBtn">This Month</button>
+                    <button class="filter-btn" id="lastMonthBtn">Last Month</button>
+                    <button class="filter-btn" id="thisYearBtn">This Year</button>
+                    <button class="filter-btn" id="lastYearBtn">Last Year</button>
+                </div>
+            </div>
+            <div class="report-table-container">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Cost Price</th>
+                            <th>Selling Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody">
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="summary-label">Grand Total</td>
+                            <td class="summary-value">₱32,528</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="summary-label">Profit</td>
+                            <td class="summary-value">₱4,641</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="sidebar">
-            <div class="sidebar-header">
+    <!-- Date Selection Modal -->
+    <div id="dateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Select Date Range</h2>
+                <span class="close-modal">&times;</span>
             </div>
-            <ul class="sidebar-menu">
-                <li>DASHBOARD</li>
-                <li>ACCOUNTS</li>
-                <li>WAREHOUSE</li>
-                <li>SUPPLIERS</li>
-                <li>CATEGORIES</li>
-                <li>ITEMS</li>
-                <li class="active">REPORT</li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-            <div class="header">
-                <div class="header-left">
-                    <div class="date-picker">
-                        <span class="arrow left-arrow">◄</span>
-                        <input type="text" value="11/12/2024" readonly>
-                        <span class="arrow right-arrow">►</span>
-                    </div>
-                    <div class="actions">
-                        <button><span class="print-icon">🖨️</span></button>
-                        <button><span class="download-icon">⬇️</span></button>
-                    </div>
-                </div>
-            </div>
-            <div class="calendar-popup">
-                <div class="calendar">
+            <div class="modal-body">
+                <div class="calendar-container">
                     <div class="calendar-header">
-                        <button class="prev-month">◄</button>
-                        <span class="month-year"></span>
-                        <button class="next-month">►</button>
+                        <h3>November 2024</h3>
                     </div>
-                    <div class="calendar-days">
-                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                    <div class="calendar">
+                        <div class="calendar-weekdays">
+                            <div>S</div>
+                            <div>M</div>
+                            <div>T</div>
+                            <div>W</div>
+                            <div>T</div>
+                            <div>F</div>
+                            <div>S</div>
+                        </div>
+                        <div class="calendar-days">
+                            <div class="prev-month">27</div>
+                            <div class="prev-month">28</div>
+                            <div class="prev-month">29</div>
+                            <div class="prev-month">30</div>
+                            <div class="prev-month">31</div>
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                            <div>8</div>
+                            <div>9</div>
+                            <div>10</div>
+                            <div>11</div>
+                            <div class="selected">12</div>
+                            <div>13</div>
+                            <div>14</div>
+                            <div>15</div>
+                            <div>16</div>
+                            <div>17</div>
+                            <div>18</div>
+                            <div>19</div>
+                            <div>20</div>
+                            <div>21</div>
+                            <div>22</div>
+                            <div>23</div>
+                            <div>24</div>
+                            <div>25</div>
+                            <div>26</div>
+                            <div>27</div>
+                            <div>28</div>
+                            <div>29</div>
+                            <div>30</div>
+                            <div class="next-month">1</div>
+                            <div class="next-month">2</div>
+                            <div class="next-month">3</div>
+                            <div class="next-month">4</div>
+                            <div class="next-month">5</div>
+                            <div class="next-month">6</div>
+                            <div class="next-month">7</div>
+                        </div>
                     </div>
-                    <div class="calendar-dates"></div>
                 </div>
-            </div>
-            <div class="content-wrapper">
-                <div class="table-wrapper">
-                    <table class="large-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Name</th>
-                                <th>Quantity</th>
-                                <th>Cost Price</th>
-                                <th>Selling Price</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="summary">
-                        <div class="summary-item">
-                            <span>Grand Total</span>
-                            <span>₱0.00</span>
-                        </div>
-                        <div class="summary-item">
-                            <span>Profit</span>
-                            <span>₱0.00</span>
-                        </div>
+                <div class="date-range-inputs">
+                    <div class="date-input-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="text" id="startDate" value="11/7/2024" readonly>
                     </div>
+                    <div class="date-input-group">
+                        <label for="endDate">End Date</label>
+                        <input type="text" id="endDate" value="11/12/2024" readonly>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="applyDateRange" class="apply-btn">Apply</button>
+                    <button id="cancelDateSelection" class="cancel-btn">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const datePicker = document.querySelector('.date-picker');
-            const calendarPopup = document.querySelector('.calendar-popup');
-            const dateInput = datePicker.querySelector('input');
-            const monthYear = document.querySelector('.month-year');
-            const calendarDates = document.querySelector('.calendar-dates');
-            const prevMonth = document.querySelector('.prev-month');
-            const nextMonth = document.querySelector('.next-month');
-            let currentDate = new Date();
 
-            function renderCalendar(date) {
-                const year = date.getFullYear();
-                const month = date.getMonth();
-                monthYear.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
-                calendarDates.innerHTML = '';
-                const firstDay = new Date(year, month, 1).getDay();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                for (let i = 0; i < firstDay; i++) {
-                    calendarDates.innerHTML += '<div></div>';
-                }
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dateDiv = document.createElement('div');
-                    dateDiv.textContent = day;
-                    dateDiv.addEventListener('click', () => {
-                        dateInput.value = `${month + 1}/${day}/${year}`;
-                        calendarPopup.style.display = 'none';
-                    });
-                    calendarDates.appendChild(dateDiv);
-                }
-            }
-
-            datePicker.addEventListener('click', function (e) {
-                e.stopPropagation();
-                calendarPopup.style.display = calendarPopup.style.display === 'block' ? 'none' : 'block';
-                renderCalendar(currentDate);
-            });
-
-            document.addEventListener('click', function (event) {
-                if (!datePicker.contains(event.target) && !calendarPopup.contains(event.target)) {
-                    calendarPopup.style.display = 'none';
-                }
-            });
-
-            prevMonth.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar(currentDate);
-            });
-
-            nextMonth.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar(currentDate);
-            });
-
-            const notificationIcon = document.querySelector('.notification-icon');
-            const notificationPanel = document.querySelector('.notification-panel');
-
-            notificationIcon.addEventListener('click', function () {
-                notificationPanel.classList.toggle('active');
-            });
-
-            document.addEventListener('click', function (event) {
-                if (!notificationIcon.contains(event.target) && !notificationPanel.contains(event.target)) {
-                    notificationPanel.classList.remove('active');
-                }
-            });
-
-            const logoutIcon = document.querySelector('.logout-icon');
-            logoutIcon.addEventListener('click', function () {
-                alert('Logging out...');
-            });
-        });
-    </script>
-</body>
-</html>
     <script src="js/report.js"></script>
     <script src="js/company-name.js"></script>
 </body>

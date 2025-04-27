@@ -424,3 +424,78 @@ thead{
 .confirm-save-container {
     z-index: 1000;
 }
+
+.notification-container {
+    position: fixed;
+    top: 5%;
+    right: 3%;
+    width: 300px;
+    background-color: #e4e4e4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    margin-top: 10px;
+}
+
+.notification-container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-header {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.notification-header h3 {
+    margin: 0;
+    color: #333333;
+    font-size: 16px;
+}
+
+.notification-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+    background-color: #f8f8f8;
+}
+
+.notification-text {
+    color: #333333;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.notification-time {
+    color: #888888;
+    font-size: 12px;
+}
+
+
+.notification-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notification-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.notification-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

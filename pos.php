@@ -1,53 +1,82 @@
 <?php
-    include "api/database.php";
-    include "class/Invoice.php";
-    include "class/Installment.php";
+include "api/database.php";
+include "class/Invoice.php";
+include "class/Installment.php";
 
-    $database = new Database();
-    $conn = $database->getConnection();
+$database = new Database();
+$conn = $database->getConnection();
 
-    $invoice = new Invoice($conn);
-    $installment = new Installment($conn);
+$invoice = new Invoice($conn);
+$installment = new Installment($conn);
 
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["pay"])){
-        $subtotal = $_POST["paySubTotal"];
-        $taxAmount = $_POST["payTaxAmount"];
-        $totalAmount = $_POST["payTotalAmount"];
-        $cashReceived = $_POST["cash"];
-        $changeAmount = $_POST["change"];
-        $cartItems = isset($_POST["cartItems"]) ? json_decode($_POST["cartItems"], true) : [];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["pay"])) {
+    $subtotal = $_POST["paySubTotal"];
+    $taxAmount = $_POST["payTaxAmount"];
+    $totalAmount = $_POST["payTotalAmount"];
+    $cashReceived = $_POST["cash"];
+    $changeAmount = $_POST["change"];
+    $cartItems = isset($_POST["cartItems"]) ? json_decode($_POST["cartItems"], true) : [];
 
+    error_log("POST pay received: subtotal=$subtotal, taxAmount=$taxAmount, totalAmount=$totalAmount, cashReceived=$cashReceived, changeAmount=$changeAmount, cartItems=" . json_encode($cartItems));
+
+    if (empty($cartItems)) {
+        $error = "No items in the cart. Please add items to proceed.";
+        error_log("Error: No items in cart for checkout");
+    } elseif (!is_numeric($subtotal) || !is_numeric($taxAmount) || !is_numeric($totalAmount) || 
+             !is_numeric($cashReceived) || !is_numeric($changeAmount)) {
+        $error = "Invalid input values. Please check the amounts.";
+        error_log("Error: Invalid numeric inputs for checkout");
+    } else {
         $invoiceId = $invoice->addInvoice($subtotal, $taxAmount, $totalAmount, $cashReceived, $changeAmount);
         
-        if ($invoiceId) {
-            $invoice->addInvoiceItems($invoiceId, $cartItems);
-            
-            $success = true;
+        if ($invoiceId && $invoice->addInvoiceItems($invoiceId, $cartItems)) {
+            $success = "Checkout transaction successful!";
+            error_log("Checkout transaction succeeded: invoiceId=$invoiceId");
         } else {
-            $error = "Transaction failed. Please try again.";
+            $error = "Checkout transaction failed. Please try again.";
+            error_log("Checkout transaction failed for invoiceId=$invoiceId");
         }
     }
+}
 
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["payInstallment"])){
-        $subtotal = $_POST["installmentSubTotal"];
-        $taxAmount = $_POST["installmentTaxAmount"];
-        $totalAmount = $_POST["installmentTotalAmount"];
-        $downpayment = $_POST["downpayment"];
-        $months = $_POST["months"];
-        $interest = $_POST["interest"];
-        $monthlyAmount = $_POST["monthlyAmount"];
-        $cartItems = isset($_POST["installmentCartItems"]) ? json_decode($_POST["installmentCartItems"], true) : [];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["payInstallment"])) {
+    $subtotal = $_POST["installmentSubTotal"];
+    $taxAmount = $_POST["installmentTaxAmount"];
+    $totalAmount = $_POST["installmentTotalAmount"];
+    $downpayment = $_POST["downpayment"];
+    $months = (string)$_POST["months"];
+    $interest = $_POST["interest"];
+    $monthlyAmount = $_POST["monthlyAmount"];
+    $cartItems = isset($_POST["installmentCartItems"]) ? json_decode($_POST["installmentCartItems"], true) : [];
 
-        $installmentId = $installment->addInstallment($subtotal, $taxAmount, $totalAmount, $downpayment, $months, $interest, $monthlyAmount);
+    error_log("POST payInstallment received: subtotal=$subtotal, taxAmount=$taxAmount, totalAmount=$totalAmount, downpayment=$downpayment, months=$months, interest=$interest, monthlyAmount=$monthlyAmount, cartItems=" . json_encode($cartItems));
 
-        if ($installmentId && !empty($cartItems)) {
-            $installment->addInstallmentItems($installmentId, $cartItems);
-            
-            $success = true;
-        } else {
-            $error = "Transaction failed. Please try again.";
+    if (empty($cartItems)) {
+        $error = "No items in the cart. Please add items to proceed.";
+        error_log("Error: No items in cart for installment");
+    } elseif (!is_numeric($subtotal) || !is_numeric($taxAmount) || !is_numeric($totalAmount) || 
+             !is_numeric($downpayment) || !is_numeric($interest) || !is_numeric($monthlyAmount) || empty($months)) {
+        $error = "Invalid input values. Please check the amounts.";
+        error_log("Error: Invalid numeric inputs for installment");
+    } else {
+        try {
+            $installmentId = $installment->addInstallment($subtotal, $taxAmount, $totalAmount, $downpayment, $months, $interest, $monthlyAmount);
+            if (!$installmentId) {
+                throw new Exception("Failed to create installment record");
+            }
+
+            if (!$installment->addInstallmentItems($installmentId, $cartItems)) {
+                throw new Exception("Failed to add installment items");
+            }
+
+            $success = "Installment transaction successful!";
+            error_log("Installment transaction succeeded: installmentId=$installmentId");
+        } catch (Exception $e) {
+            $error = "Installment transaction failed: " . $e->getMessage();
+            error_log("Installment transaction failed for installmentId=$installmentId: " . $e->getMessage());
         }
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,9 +88,14 @@
     <link rel="stylesheet" href="style/pos.css">
 </head>
 <body>
-    <div class="overlay" id="overlay">
+    <?php if (isset($error)): ?>
+        <script>alert("<?php echo htmlspecialchars($error); ?>");</script>
+    <?php endif; ?>
+    <?php if (isset($success)): ?>
+        <script>alert("<?php echo htmlspecialchars($success); ?>"); window.location.href="pos.php";</script>
+    <?php endif; ?>
 
-    </div>
+    <div class="overlay" id="overlay"></div>
     <form method="post" action="pos.php" class="checkout-container" id="checkout-container">
         <input type="hidden" name="paySubTotal" id="paySubTotal">
         <input type="hidden" name="payTaxAmount" id="payTaxAmount">
@@ -81,9 +115,7 @@
                 <td class="td-total-td-checkout" id="checkoutTotal"></td>
             </tr>
         </table>
-        <div class="space-lol">
-            
-        </div>
+        <div class="space-lol"></div>
         <div class="input-cash-container">
             <label for="cash" class="label-style">Cash</label>
             <input type="number" name="cash" id="cash" autocomplete="off" required oninput="calculateChange()">
@@ -100,7 +132,6 @@
         <input type="hidden" name="installmentTaxAmount" id="installmentTaxAmount">
         <input type="hidden" name="installmentTotalAmount" id="installmentTotalAmount">
         <input type="hidden" name="installmentCartItems" id="installmentCartItems">
-
         <table class="table-checkout-style">
             <tr class="tr-checkout-style">
                 <td class="td-name-td-checkout">Subtotal:</td>
@@ -115,12 +146,10 @@
                 <td class="td-total-td-checkout" id="installmentTotalDisplay"></td>
             </tr>
         </table>
-        
         <div class="input-downpayment-container">
             <label for="downpayment" class="label-style">Downpayment</label>
             <input type="number" name="downpayment" id="downpayment" autocomplete="off" required>
         </div>
-        
         <div class="input-months-container">
             <label for="months" class="label-style">Monthly Payment (months)</label>
             <select name="months" id="months" required>
@@ -140,13 +169,10 @@
             <label for="monthlyAmount" class="label-style">Monthly Amount</label>
             <input type="number" name="monthlyAmount" id="monthlyAmount" readonly>
         </div>
-        
         <button class="button-pay-style" name="payInstallment">Pay Installment</button>
     </form>
 
-    <div class="header-container">
-
-    </div>
+    <div class="header-container"></div>
     <div class="main-container">
         <div class="product-container">
             <div class="title-container">
@@ -164,9 +190,7 @@
                         <th class="th-style" id="actionTh">Action</th>
                     </tr>
                 </thead>
-                <tbody id="content">
-                    <!-- JS -->
-                </tbody>
+                <tbody id="content"></tbody>
             </table>
         </div>
         <div class="content-container">
@@ -180,9 +204,7 @@
                         <th class="th-cart-style">Total</th>
                         <th class="th-cart-style" id="deleteTh">Delete</th>
                     </tr>                       
-                    <tbody id="cart">
-                        
-                    </tbody>
+                    <tbody id="cart"></tbody>
                 </table>
             </div>
             <div class="total-container">
@@ -206,8 +228,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
     </div>
     <script src="js/pos.js"></script>
 </body>

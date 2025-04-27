@@ -52,6 +52,20 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
     fetchCategories();
+    fetchItemOut();
+    fetchItemLow();
+    fetchRecentlyAdded();
+    
+    document.getElementById("notificationIcon").addEventListener("click", function(event){
+        event.preventDefault();
+        document.getElementById("notificationContainer").classList.add("show");
+    });
+     document.addEventListener('click', function(e) {
+        if (!notificationContainer.contains(e.target) && 
+            !notificationIcon.contains(e.target)) {
+                document.getElementById("notificationContainer").classList.remove("show");
+        }
+    });
 });
 
 let allCategories = [];
@@ -174,4 +188,58 @@ function searchCategories() {
             }
         });
     });
+}
+
+function fetchItemOut(){
+    fetch("api/item_out_stock_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){
+            data.itemOut.forEach(items =>{
+                document.getElementById("notificationContent").innerHTML += `
+                    <div class="notification-item">
+                        <span class="notification-text">Out of stock alert: ${items.name}</span>
+                    </div>
+                `;
+
+            });
+        }
+    })
+    .catch(error => console.error("Failed Fetching Dashboard", error));
+}
+
+function fetchItemLow(){
+    fetch("api/item_low_stock_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){
+
+            data.itemLow.forEach(items =>{
+                document.getElementById("notificationContent").innerHTML += `
+                    <div class="notification-item">
+                        <span class="notification-text">Low stock alert: ${items.name}</span>
+                    </div>
+                `;
+            });
+
+        }
+    })
+    .catch(error => console.error("Failed Fetching Dashboard", error));
+}
+
+function fetchRecentlyAdded(){
+    fetch("api/item_recently_added_api.php")
+    .then(response => response.json())
+    .then(data =>{
+        if(data.status === "success"){          
+            data.recentlyAdded.slice(0, 5).forEach(items => {
+                document.getElementById("notificationContent").innerHTML += `
+                    <div class="notification-item">
+                        <span class="notification-text">Recently Added: ${items.name}</span>
+                    </div>
+                `;
+            });
+        }
+    })
+    .catch(error => console.error("Failed Fetching Dashboard", error));
 }

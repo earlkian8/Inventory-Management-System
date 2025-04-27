@@ -13,15 +13,12 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     checkout.addEventListener("click", function(event){
         event.preventDefault();
-
         collectCartItems();
-        
         overlay.classList.add("show");
         checkoutContainer.classList.add("show");
     });
 
     overlay.addEventListener("click", function(event){
-
         if (event.target === overlay) {
             event.preventDefault();
             overlay.classList.remove("show");
@@ -38,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
     document.getElementById('interest').addEventListener('change', function() {
         const value = parseFloat(this.value) || 0;
-        
         if (value < 0) {
             this.value = 0;
             this.setCustomValidity("Interest cannot be less than 0%");
@@ -48,8 +44,37 @@ document.addEventListener("DOMContentLoaded", function(){
         } else {
             this.setCustomValidity("");
         }
-        
         calculateMonthlyPayment();
+    });
+
+    checkoutContainer.addEventListener('submit', function(event) {
+        const cartItemsValue = document.getElementById('cartItems').value;
+        console.log("Checkout form submitted, cartItems:", cartItemsValue);
+        if (!cartItemsValue || cartItemsValue === '[]') {
+            console.warn("Warning: cartItems is empty or invalid");
+            alert("No items in the cart. Please add items before proceeding.");
+            event.preventDefault();
+        }
+    });
+
+    installmentContainer.addEventListener('submit', function(event) {
+        const cartItemsValue = document.getElementById('installmentCartItems').value;
+        const formData = {
+            subTotal: document.getElementById('installmentSubTotal').value,
+            taxAmount: document.getElementById('installmentTaxAmount').value,
+            totalAmount: document.getElementById('installmentTotalAmount').value,
+            downpayment: document.getElementById('downpayment').value,
+            months: document.getElementById('months').value,
+            interest: document.getElementById('interest').value,
+            monthlyAmount: document.getElementById('monthlyAmount').value,
+            cartItems: cartItemsValue
+        };
+        console.log("Installment form submitted, formData:", JSON.stringify(formData));
+        if (!cartItemsValue || cartItemsValue === '[]') {
+            console.warn("Warning: installmentCartItems is empty or invalid");
+            alert("No items in the cart. Please add items before proceeding.");
+            event.preventDefault();
+        }
     });
 });
 
@@ -71,13 +96,15 @@ function collectCartItems() {
             const total = parseFloat(totalCell.textContent) || 0;
             const unitPrice = parseFloat(row.querySelectorAll('.td-cart-style')[1].textContent) || 0;
             
-            cartItems.push({
-                item_id: itemId,
-                quantity: quantity,
-                unit_price: unitPrice,
-                discount_percent: discount,
-                total_price: total
-            });
+            if (quantity > 0) {
+                cartItems.push({
+                    item_id: itemId,
+                    quantity: quantity,
+                    unit_price: unitPrice,
+                    discount_percent: discount,
+                    total_price: total
+                });
+            }
         }
     });
 
@@ -86,9 +113,15 @@ function collectCartItems() {
     
     if (cartItemsInput) {
         cartItemsInput.value = JSON.stringify(cartItems);
+        console.log("collectCartItems: cartItems set to", cartItemsInput.value);
     }
     if (installmentCartItemsInput) {
         installmentCartItemsInput.value = JSON.stringify(cartItems);
+        console.log("collectCartItems: installmentCartItems set to", installmentCartItemsInput.value);
+    }
+
+    if (cartItems.length === 0) {
+        console.warn("collectCartItems: No valid items collected");
     }
 }
 
@@ -101,7 +134,7 @@ function fetchItemActive(){
         if(data.status === "success"){
             content.innerHTML = "";
             allItems = data.itemActive;
-            data.itemActive.forEach(items =>{
+            data.itemActive.forEach(items => {
                 content.innerHTML += `
                     <tr class="tr-body-style" data-item-id=${items.item_id}>
                         <td class="td-style">${items.name}</td>
@@ -109,22 +142,23 @@ function fetchItemActive(){
                         <td class="td-style">₱${items.unitPrice}</td>
                         <td class="td-style"><button class="add-button-style" data-item-id=${items.item_id}>Add</button></td>
                     </tr>
-                `;  
+                `;
             });
 
-            document.querySelectorAll(".add-button-style").forEach(button =>{
+            document.querySelectorAll(".add-button-style").forEach(button => {
                 button.addEventListener("click", function(){
                     const itemId = this.getAttribute("data-item-id");
                     const items = data.itemActive.find(i => i.item_id == itemId);
-
                     if(items){
                         addItemtoCart(items);
                     }
                 });
             });
+        } else {
+            console.error("fetchItemActive failed:", data.message);
         }
     })
-    .catch(error => console.error("Failed Fetching Items", error));
+    .catch(error => console.error("Failed Fetching Items:", error));
 }
 
 function addItemtoCart(items) {
@@ -135,7 +169,7 @@ function addItemtoCart(items) {
             <td class="td-cart-style">${items.name}</td>
             <td class="td-cart-style">${items.unitPrice}</td>
             <td class="td-cart-style"><div class="discount-container">
-                <input type="number" class="quantity-input" value="0" min="1" max="${items.quantity}" autocomplete="off">
+                <input type="number" class="quantity-input" value="1" min="1" max="${items.quantity}" autocomplete="off">
             </div></td>
             <td class="td-cart-style"><div class="discount-container">
                 <input type="number" class="discount-input" value="0" autocomplete="off">%</div></td>
@@ -155,11 +189,11 @@ function addItemtoCart(items) {
         const availableQuantity = parseInt(items.quantity);
 
         if (quantity > availableQuantity) {
-            this.setCustomValidity(`Maximum available quantity is ${availableQuantity}`);
             quantityInput.value = availableQuantity;
+            quantityInput.setCustomValidity(`Maximum available quantity is ${availableQuantity}`);
             return;
         }
-        
+        quantityInput.setCustomValidity("");
 
         const discount = parseInt(discountInput.value) || 0;
         const subtotal = items.unitPrice * quantity;
@@ -176,31 +210,30 @@ function addItemtoCart(items) {
         const max = parseInt(items.quantity);
         
         if (value > max) {
-            this.setCustomValidity("Cash amount must be greater than or equal to the total amount");
             this.value = max;
-            updateTotal();
-        }
-        
-        if (value < 1) {
+            this.setCustomValidity(`Maximum available quantity is ${max}`);
+        } else if (value < 1) {
             this.value = 1;
-            updateTotal();
+            this.setCustomValidity("Quantity must be at least 1");
+        } else {
+            this.setCustomValidity("");
         }
+        updateTotal();
     });
     discountInput.addEventListener("change", function(){
-        const value = parseInt(this.value || 0);
+        const value = parseInt(this.value) || 0;
         const max = 100;
 
         if (value > max) {
-            this.setCustomValidity("Discount cannot exceed 100%");
             this.value = max;
-            updateTotal();
+            this.setCustomValidity("Discount cannot exceed 100%");
+        } else if (value < 0) {
+            this.value = 0;
+            this.setCustomValidity("Discount cannot be negative");
         } else {
             this.setCustomValidity("");
-            if (value < 0) {
-                this.value = 0;
-                updateTotal();
-            }
         }
+        updateTotal();
     });
 
     const deleteButton = newRow.querySelector('.delete-button-style');
@@ -208,6 +241,8 @@ function addItemtoCart(items) {
         newRow.remove();
         calculateGrandTotal();
     });
+
+    updateTotal();
 }
 
 function calculateGrandTotal() {
@@ -222,28 +257,27 @@ function calculateGrandTotal() {
     });
     
     const tax = subtotal * 0.12;
-    
     const total = subtotal + tax;
     
     document.getElementById("subTotal").textContent = subtotal.toFixed(2);
     document.getElementById("tax").textContent = tax.toFixed(2);
     document.getElementById("total").textContent = total.toFixed(2);
 
-    document.getElementById("paySubTotal").value = parseFloat(document.getElementById("subTotal").textContent);
-    document.getElementById("payTaxAmount").value = parseFloat(document.getElementById("tax").textContent);
-    document.getElementById("payTotalAmount").value = parseFloat(document.getElementById("total").textContent);
+    document.getElementById("paySubTotal").value = subtotal.toFixed(2);
+    document.getElementById("payTaxAmount").value = tax.toFixed(2);
+    document.getElementById("payTotalAmount").value = total.toFixed(2);
 
-    document.getElementById("installmentSubTotal").value = parseFloat(document.getElementById("subTotal").textContent);
-    document.getElementById("installmentTaxAmount").value = parseFloat(document.getElementById("tax").textContent);
-    document.getElementById("installmentTotalAmount").value = parseFloat(document.getElementById("total").textContent);
+    document.getElementById("installmentSubTotal").value = subtotal.toFixed(2);
+    document.getElementById("installmentTaxAmount").value = tax.toFixed(2);
+    document.getElementById("installmentTotalAmount").value = total.toFixed(2);
 
-    document.getElementById("checkoutSubtotal").textContent = parseFloat(document.getElementById("subTotal").textContent);
-    document.getElementById("checkoutTax").textContent = parseFloat(document.getElementById("tax").textContent);
-    document.getElementById("checkoutTotal").textContent = parseFloat(document.getElementById("total").textContent);
+    document.getElementById("checkoutSubtotal").textContent = subtotal.toFixed(2);
+    document.getElementById("checkoutTax").textContent = tax.toFixed(2);
+    document.getElementById("checkoutTotal").textContent = total.toFixed(2);
 
-    document.getElementById("installmentSubtotalDisplay").textContent = parseFloat(document.getElementById("subTotal").textContent);
-    document.getElementById("installmentTaxDisplay").textContent = parseFloat(document.getElementById("tax").textContent);
-    document.getElementById("installmentTotalDisplay").textContent = parseFloat(document.getElementById("total").textContent);
+    document.getElementById("installmentSubtotalDisplay").textContent = subtotal.toFixed(2);
+    document.getElementById("installmentTaxDisplay").textContent = tax.toFixed(2);
+    document.getElementById("installmentTotalDisplay").textContent = total.toFixed(2);
 }
 
 function searchProduct() {
@@ -327,7 +361,7 @@ function calculateChange() {
 }
 
 function calculateMonthlyPayment() {
-    const totalAmount = parseFloat(document.getElementById("payTotalAmount").value) || 0;
+    const totalAmount = parseFloat(document.getElementById("installmentTotalAmount").value) || 0;
     const downpayment = parseFloat(document.getElementById('downpayment').value) || 0;
     const months = parseInt(document.getElementById('months').value) || 0;
     const interestRate = parseFloat(document.getElementById('interest').value) || 0;
@@ -340,20 +374,17 @@ function calculateMonthlyPayment() {
         document.getElementById('downpayment').setCustomValidity("");
     }
 
-    const remainingAmount = totalAmount - downpayment;
-    
-    if (months > 0 && remainingAmount > 0) {
+    if (months > 0 && totalAmount > 0) {
+        const remainingAmount = totalAmount - downpayment;
         const monthlyInterestRate = interestRate / 100 / 12;
         const numerator = remainingAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, months);
         const denominator = Math.pow(1 + monthlyInterestRate, months) - 1;
         const monthlyPayment = numerator / denominator;
         
         document.getElementById('monthlyAmount').value = monthlyPayment.toFixed(2);
-
-        document.getElementById('payDownpayment').value = downpayment;
-        document.getElementById('payMonthlyPayment').value = months;
-        document.getElementById('payMonthlyAmount').value = monthlyPayment.toFixed(2);
+        console.log("calculateMonthlyPayment: totalAmount=", totalAmount, "downpayment=", downpayment, "months=", months, "interestRate=", interestRate, "monthlyPayment=", monthlyPayment.toFixed(2));
     } else {
         document.getElementById('monthlyAmount').value = '';
+        console.log("calculateMonthlyPayment: Invalid inputs, monthlyAmount cleared");
     }
 }
