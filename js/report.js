@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const calendarHeader = document.querySelector(".calendar-header h3");
     const calendarDays = document.querySelector(".calendar-days");
 
-    let currentStartDate = new Date(2025, 3, 27);
-    let currentEndDate = new Date(2025, 3, 27, 23, 59, 59, 999);
+    let currentStartDate = new Date();
+    let currentEndDate = new Date();
     let allInvoices = [];
     let allInvoiceItems = [];
     let allInstallments = [];
@@ -364,8 +364,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     currentEndDate = new Date(currentStartDate.getFullYear(), currentStartDate.getMonth(), currentStartDate.getDate(), 23, 59, 59, 999);
                     break;
                 case "thisWeekBtn":
-                    currentStartDate = normalizeDate(new Date(now.setDate(now.getDate() - now.getDay())));
-                    currentEndDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+                    const today = new Date();
+                    currentStartDate = normalizeDate(new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()));
+                    currentEndDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999);
                     break;
                 case "lastWeekBtn":
                     currentStartDate = normalizeDate(new Date(now.setDate(now.getDate() - now.getDay() - 7)));
