@@ -172,7 +172,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["payInstallment"])) {
         <button class="button-pay-style" name="payInstallment">Pay Installment</button>
     </form>
 
-    <div class="header-container"></div>
+    <div class="header-container">
+        <h1 class="company-name" id="company-name"></h1>
+        <img src="images/inventify-logo-ffffff.png" alt="logo" class="icon-style">
+        <div class="icon-container">
+            <img src="images/logout-icon-ffffff.png" alt="Logout" class="icon-style-con" id="logoutId">
+        </div>
+    </div>
     <div class="main-container">
         <div class="product-container">
             <div class="title-container">
@@ -229,6 +235,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["payInstallment"])) {
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("logoutId").addEventListener("click", function(){
+            window.location.href = "login.php"
+        });
+    </script>
+    <script src="js/company-name.js"></script>
     <script src="js/pos.js"></script>
 </body>
 </html>

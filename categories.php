@@ -50,7 +50,7 @@
                 <div class="notification-content" id="notificationContent">
                 </div>
             </div>
-            <img src="images/logout-icon-ffffff.png" alt="Logout" class="icon-style-con">
+            <img src="images/logout-icon-ffffff.png" alt="Logout" class="icon-style-con" id="logoutId">
         </div>
     </div>
 
@@ -189,5 +189,10 @@
      </div>
     <script src="js/categories.js"></script>
     <script src="js/company-name.js"></script>
+    <script>
+        document.getElementById("logoutId").addEventListener("click", function(){
+            window.location.href = "login.php"
+        });
+    </script>
 </body>
 </html>

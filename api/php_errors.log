@@ -1,0 +1,16 @@
+[07-May-2025 19:29:37 Europe/Berlin] Failed to send OTP to earlkian8@gmail.com
+[07-May-2025 19:31:11 Europe/Berlin] Failed to send OTP to earlkian8@gmail.com
+[07-May-2025 19:31:58 Europe/Berlin] Failed to send OTP to earlkian8@gmail.com
+[07-May-2025 19:33:31 Europe/Berlin] Failed to send OTP to earlkian8@gmail.com: mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set()
+[07-May-2025 19:49:57 Europe/Berlin] get_env.php: .env file not found at C:\xampp\htdocs\myprojects\Inventory-Management-System\api/../env
+[07-May-2025 19:49:57 Europe/Berlin] get_env.php error: .env file not found
+[07-May-2025 19:50:56 Europe/Berlin] get_env.php: .env file not found at ../env
+[07-May-2025 19:50:56 Europe/Berlin] get_env.php error: .env file not found
+[07-May-2025 19:52:25 Europe/Berlin] get_env.php: .env file not found at ../env
+[07-May-2025 19:52:25 Europe/Berlin] get_env.php error: .env file not found
+[07-May-2025 19:52:26 Europe/Berlin] get_env.php: .env file not found at ../env
+[07-May-2025 19:52:26 Europe/Berlin] get_env.php error: .env file not found
+[07-May-2025 19:52:26 Europe/Berlin] get_env.php: .env file not found at ../env
+[07-May-2025 19:52:26 Europe/Berlin] get_env.php error: .env file not found
+[07-May-2025 19:52:27 Europe/Berlin] get_env.php: .env file not found at ../env
+[07-May-2025 19:52:27 Europe/Berlin] get_env.php error: .env file not found

@@ -1,11 +1,9 @@
 <?php
-
     include "api/database.php";
     include "class/Accounts.php";
-    
+
     $database = new Database();
     $conn = $database->getConnection();
-
     $acc = new Accounts($conn);
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])){
@@ -15,18 +13,16 @@
         $result = $acc->login($username, $password);
         
         if($result){
-            
             if($result["account_type"] == "Admin"){
                 header("Location: dashboard.php");
-                exit();
             }else{
                 header("Location: pos.php");
             }
+            exit();
         }else{
-            echo "<script>console.log('invalid');</script>";
+            echo "Invalid login";
         }
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +55,7 @@
                 <button class="button-style" name="login">Login</button>
             </div>
             <div class="input-subcontainer2">
-                <a href="" class="a-style">Forgot your password?</a>
+                <a href="forgot_password/prompt_email.php" class="a-style">Forgot your password?</a>
             </div>  
         </form>
     </div>

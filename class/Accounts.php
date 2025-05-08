@@ -67,6 +67,26 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+
+        public function updatePassword($email, $password) {
+            
+            $query = "UPDATE " . $this->table . " SET password = :password WHERE email = :email";
+            $stmt = $this->conn->prepare($query);
+            
+            try {
+                $success = $stmt->execute([
+                    ":password" => $password,
+                    ":email" => $email
+                ]);
+
+                $rowsAffected = $stmt->rowCount();
+
+                return $success && $rowsAffected > 0;
+            } catch (PDOException $e) {
+                error_log("Password update failed: " . $e->getMessage());
+                return false;
+            }
+        }
         
 
     }

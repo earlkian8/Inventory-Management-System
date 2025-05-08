@@ -419,3 +419,33 @@ thead {
     justify-content: center;
     flex-direction: row;
   }
+
+  .icon-container{
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-style{
+    height: 70%;
+}
+
+.icon-style-con{
+    height: 80%;
+    margin: .30em;
+}
+
+.company-name{
+    margin-left: .30em;
+    color: #ffffff;
+}
+
+.header-container{
+  width: 100%;
+  height: 7%;
+  background-color: #383838;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

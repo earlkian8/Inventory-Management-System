@@ -10,8 +10,8 @@ $conn = $database->getConnection();
 
 $acc = new Accounts($conn);
 
-$row = $acc->getAccountCountByAdmin();
-if ($row["count"] == 0) {
+$adminRow = $acc->getAccountCountByAdmin();
+if ($adminRow["count"] == 0) {
     header("Location: welcome/welcome.php");
     exit();
 } else {
